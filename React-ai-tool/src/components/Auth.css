@@ -1,0 +1,142 @@
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #212121;
+  padding: 24px;
+}
+
+/* When used in modal, don't apply container styles */
+.auth-container:has(.auth-card) {
+  min-height: auto;
+  padding: 0;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ececec;
+  margin-bottom: 8px;
+}
+
+.auth-header p {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ececec;
+}
+
+.form-group input {
+  padding: 12px;
+  background-color: #1f1f1f;
+  border: 1px solid #3f3f3f;
+  border-radius: 8px;
+  color: #ececec;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #10a37f;
+}
+
+.form-group input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-group input::placeholder {
+  color: #6b7280;
+}
+
+.error-message {
+  padding: 12px;
+  background-color: #7f1d1d;
+  border: 1px solid #991b1b;
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 14px;
+  text-align: center;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #10a37f;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 8px;
+}
+
+.auth-button:hover:not(:disabled) {
+  background-color: #0d8a6d;
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-footer {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.auth-footer p {
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #10a37f;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: underline;
+  padding: 0;
+  margin-left: 4px;
+}
+
+.link-button:hover {
+  color: #0d8a6d;
+}
+
