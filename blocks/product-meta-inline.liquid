@@ -1,0 +1,143 @@
+{%- liquid
+  assign product_resource = closest.product
+  assign selected_variant = product_resource.selected_or_first_available_variant
+  assign block_settings = block.settings
+-%}
+
+<ul
+  class="inline-list product-meta"
+  data-price="{{ selected_variant.price }}"
+  {{ block.shopify_attributes }}
+>
+  <li class="info-list">
+    <product-price
+      class="product-meta-inline__price-el"
+      data-block-id="{{ block.id }}"
+      data-product-id="{{ product_resource.id }}"
+    >
+      <div id="productPrice-{{ block.id }}" class="h1 price-product">
+        {% render 'price',
+          product_resource: product_resource,
+          show_sale_price_first: block_settings.show_sale_price_first,
+          show_unit_price: true
+        %}
+      </div>
+    </product-price>
+  </li>
+
+  {% if block_settings.show_tax_label and block_settings.tax_label != blank %}
+    <li class="info-list">
+      <span class="ex-gst-label product-meta-inline__tax">{{ block_settings.tax_label }}</span>
+    </li>
+  {% endif %}
+
+  {% if block_settings.show_sku %}
+    <li class="info-list">
+      <product-sku-component
+        class="product-meta-inline__sku-el"
+        data-product-id="{{ product_resource.id }}"
+        {% if selected_variant.sku == blank %}
+          style="display: none;"
+        {% endif %}
+      >
+        <div ref="skuContainer">
+          <span>{{ block_settings.sku_prefix }} </span>
+          <span
+            class="sku"
+            ref="sku"
+            data-testid="product-sku"
+          >
+            {{- selected_variant.sku -}}
+          </span>
+        </div>
+      </product-sku-component>
+    </li>
+  {% endif %}
+</ul>
+
+{% stylesheet %}
+  .inline-list.product-meta {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .inline-list.product-meta .info-list {
+    margin: 0;
+  }
+
+  .product-meta-inline__price-el {
+    display: inline-block;
+    vertical-align: baseline;
+  }
+
+  .price-product [ref='priceContainer'] .unit-price {
+    display: block;
+    margin-top: 0.25rem;
+  }
+
+  .price-product .price {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+
+  .product-meta-inline__tax {
+    font-size: 1.25rem;
+    color: #ff935b;
+    margin-left: 0.375rem;
+  }
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product meta row",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.resource_reference_product_price"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sale_price_first",
+      "label": "t:settings.show_sale_price_first",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tax_label",
+      "label": "Show tax label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "tax_label",
+      "label": "Tax label text",
+      "default": "(Ex. GST)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sku",
+      "label": "Show SKU",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sku_prefix",
+      "label": "SKU prefix",
+      "default": "SKU :"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product meta row",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

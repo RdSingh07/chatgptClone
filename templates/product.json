@@ -133,213 +133,46 @@
                     "padding-inline-end": 0
                   },
                   "blocks": {}
-                },
-                "group_g8MmAB": {
-                  "type": "group",
-                  "name": "t:names.group",
-                  "disabled": true,
-                  "settings": {
-                    "content_direction": "row",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "space-between",
-                    "vertical_alignment": "center",
-                    "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
-                    "vertical_alignment_flex_direction_column": "center",
-                    "gap": 12,
-                    "width": "fill",
-                    "custom_width": 100,
-                    "width_mobile": "fill",
-                    "custom_width_mobile": 100,
-                    "height": "fit",
-                    "custom_height": 100,
-                    "inherit_color_scheme": false,
-                    "color_scheme": "scheme-58084d4c-a86e-4d0a-855e-a0966e5043f7",
-                    "background_media": "none",
-                    "video_position": "cover",
-                    "background_image_position": "cover",
-                    "border": "none",
-                    "border_width": 1,
-                    "border_opacity": 100,
-                    "border_radius": 0,
-                    "toggle_overlay": false,
-                    "overlay_color": "#00000026",
-                    "overlay_style": "solid",
-                    "gradient_direction": "to top",
-                    "link": "",
-                    "open_in_new_tab": false,
-                    "placeholder": "",
-                    "padding-block-start": 14,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "price_pU8KUz": {
-                      "type": "price",
-                      "name": "t:names.product_price",
-                      "settings": {
-                        "show_sale_price_first": true,
-                        "show_installments": false,
-                        "show_tax_info": false,
-                        "type_preset": "h2",
-                        "width": "100%",
-                        "alignment": "left",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "color": "var(--color-foreground)",
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    },
-                    "text_riGkk8": {
-                      "type": "text",
-                      "name": "t:names.text",
-                      "settings": {
-                        "text": "<p>(Ex. GST)</p>",
-                        "width": "100%",
-                        "max_width": "none",
-                        "alignment": "center",
-                        "type_preset": "h3",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--color-foreground)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    },
-                    "sku_y6m8CH": {
-                      "type": "sku",
-                      "name": "t:names.product_sku",
-                      "settings": {
-                        "type_preset": "h4",
-                        "width": "100%",
-                        "alignment": "right",
-                        "font": "var(--font-body--family)",
-                        "font_size": "0.875rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "color": "var(--color-primary)",
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "price_pU8KUz",
-                    "text_riGkk8",
-                    "sku_y6m8CH"
-                  ]
                 }
               },
               "block_order": [
-                "text_xrnftG",
-                "group_g8MmAB"
+                "text_xrnftG"
               ]
             },
-            "group_AFAdrg": {
-              "type": "group",
-              "name": "t:names.group",
-              "disabled": true,
+            "product_meta_bds": {
+              "type": "product-meta-inline",
+              "name": "Product meta row",
               "settings": {
-                "content_direction": "row",
-                "vertical_on_mobile": false,
-                "horizontal_alignment": "flex-start",
-                "vertical_alignment": "center",
-                "align_baseline": false,
-                "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
-                "custom_height": 100,
-                "inherit_color_scheme": true,
-                "color_scheme": "",
-                "background_media": "none",
-                "video_position": "cover",
-                "background_image_position": "cover",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "link": "",
-                "open_in_new_tab": false,
-                "placeholder": "",
+                "show_sale_price_first": true,
+                "show_tax_label": true,
+                "tax_label": "(Ex. GST)",
+                "show_sku": true,
+                "sku_prefix": "SKU :"
+              },
+              "blocks": {}
+            },
+            "product_delivery_bds": {
+              "type": "product-delivery-notice",
+              "name": "Delivery notice",
+              "settings": {
+                "icon_url": "https://www.backdropsource.in/cdn/shop/files/Free_Delivery_small.png?v=1616151803",
+                "message": "FREE DELIVERY ( 10 - 12 Working Days )",
+                "modal_summary_label": "More about delivery",
+                "modal_heading": "Delivery times",
+                "modal_content": "<p>Free delivery in 10–12 working days after your artwork is approved. Times may vary by region.</p>"
+              },
+              "blocks": {}
+            },
+            "product_highlights_bds": {
+              "type": "product-highlight-bullets",
+              "name": "Product highlights",
+              "settings": {
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {
-                "icon_hiYpde": {
-                  "type": "icon",
-                  "name": "t:names.icon",
-                  "settings": {
-                    "icon": "truck",
-                    "width": 24,
-                    "link": "",
-                    "open_in_new_tab": false
-                  },
-                  "blocks": {}
-                },
-                "text_nG6bCV": {
-                  "type": "text",
-                  "name": "t:names.text",
-                  "settings": {
-                    "text": "<h4>FREE DELIVERY ( 10 - 12 Working Days )</h4>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "icon_hiYpde",
-                "text_nG6bCV"
-              ]
+              "blocks": {}
             },
             "divider_VJhene": {
               "type": "_divider",
@@ -401,6 +234,54 @@
               },
               "block_order": []
             },
+            "product_outline_bds": {
+              "type": "product-outline-links",
+              "name": "Template & quote links",
+              "settings": {
+                "show_box_1": true,
+                "box_1_header": "Graphics Templates & Setup Guide",
+                "box_1_label": "Design Template & Assembly Guide",
+                "box_1_url": "https://mega.nz/folder/BZVEWB5R#hIFE7nFQ4p0kO3BwpjrxZg",
+                "box_1_new_tab": true,
+                "show_box_2": false,
+                "box_2_header": "Get a Custom Size Quote",
+                "box_2_label": "Get a Custom Size Quote",
+                "box_2_url": "",
+                "box_2_new_tab": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_order_steps_bds": {
+              "type": "product-order-steps",
+              "name": "Order process steps",
+              "settings": {
+                "step_1": "Upload or Email Your Artwork",
+                "step_2": "Get a Free 2D Mockup by Email",
+                "step_3": "Approve Design by Email",
+                "step_4": "We Start Printing Your Order",
+                "show_on_mobile": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_spec_bds": {
+              "type": "product-spec-icons",
+              "name": "Spec icons",
+              "settings": {
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "text_aEtTtq": {
               "type": "text",
               "name": "Product description",
@@ -430,10 +311,15 @@
           },
           "block_order": [
             "group_icgrde",
-            "group_AFAdrg",
+            "product_highlights_bds",
+            "product_meta_bds",
+            "product_delivery_bds",
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "product_outline_bds",
+            "product_order_steps_bds",
+            "product_spec_bds",
             "text_aEtTtq"
           ]
         }

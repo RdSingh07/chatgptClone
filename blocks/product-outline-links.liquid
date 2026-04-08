@@ -1,0 +1,191 @@
+{%- liquid
+  assign bs = block.settings
+  assign show_1 = bs.show_box_1
+  assign show_2 = bs.show_box_2
+-%}
+
+{% if show_1 or show_2 %}
+  <div class="product-outline-links spacing-style" style="{% render 'spacing-style', settings: bs %}" {{ block.shopify_attributes }}>
+    {% if show_1 and bs.box_1_label != blank and bs.box_1_url != blank %}
+      <div class="product-outline-links__box cus-outline-box">
+        {% if bs.box_1_header != blank %}
+          <span class="product-outline-links__header">{{ bs.box_1_header }}</span>
+        {% endif %}
+        <a class="product-outline-links__btn btn setup-instruction" href="{{ bs.box_1_url }}" {% if bs.box_1_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          {{ bs.box_1_label }}
+        </a>
+      </div>
+    {% endif %}
+
+    {% if show_2 and bs.box_2_label != blank and bs.box_2_url != blank %}
+      <div class="product-outline-links__box cus-outline-box">
+        {% if bs.box_2_header != blank %}
+          <span class="product-outline-links__header">{{ bs.box_2_header }}</span>
+        {% endif %}
+        <a class="product-outline-links__btn btn" href="{{ bs.box_2_url }}" {% if bs.box_2_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
+          {{ bs.box_2_label }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .product-outline-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .product-outline-links__box {
+    border: 2px dashed #c62828;
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+  }
+
+  .product-outline-links__header {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-foreground);
+  }
+
+  .product-outline-links__btn {
+    display: inline-block;
+    padding: 0.65rem 1rem;
+    background: #e0e0e0;
+    color: var(--color-foreground);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+
+  .product-outline-links__btn:hover {
+    opacity: 0.9;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Template & quote links",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "First box"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_box_1",
+      "label": "Show first box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "box_1_header",
+      "label": "Heading",
+      "default": "Graphics Templates & Setup Guide"
+    },
+    {
+      "type": "text",
+      "id": "box_1_label",
+      "label": "Link text",
+      "default": "Design Template & Assembly Guide"
+    },
+    {
+      "type": "url",
+      "id": "box_1_url",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "box_1_new_tab",
+      "label": "Open in new tab",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Second box"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_box_2",
+      "label": "Show second box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "box_2_header",
+      "label": "Heading",
+      "default": "Get a Custom Size Quote"
+    },
+    {
+      "type": "text",
+      "id": "box_2_label",
+      "label": "Link text",
+      "default": "Get a Custom Size Quote"
+    },
+    {
+      "type": "url",
+      "id": "box_2_url",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "box_2_new_tab",
+      "label": "Open in new tab",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Template & quote links",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

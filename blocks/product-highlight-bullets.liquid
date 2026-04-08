@@ -1,0 +1,86 @@
+{% if block.settings.content != blank %}
+  <div
+    class="product-highlight-bullets rte spacing-style"
+    style="{% render 'spacing-style', settings: block.settings %}"
+    {{ block.shopify_attributes }}
+  >
+    {{ block.settings.content }}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .product-highlight-bullets ul {
+    text-align: left;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .product-highlight-bullets li {
+    margin-bottom: 0.35rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product highlights",
+  "tag": null,
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Bullet list",
+      "default": "<ul><li>Sleek straight design for a clean, professional backdrop appearance</li><li>Premium tension fabric ensures wrinkle-free, high-resolution graphics</li><li>Durable aluminum frame offers strength without added weight</li><li>Includes optional accessories: red carpet, LED lighting, or stable base</li><li>Ideal for exhibitions, trade shows, press events, and photo ops</li><li>Tool-free assembly – sets up in minutes with minimal effort</li><li>Lightweight and portable – perfect for frequent event use</li><li>Available in multiple widths to suit standard and large booth sizes</li></ul>"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product highlights",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

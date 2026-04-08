@@ -1,0 +1,396 @@
+{%- liquid
+  assign bs = block.settings
+-%}
+
+<div
+  class="product-spec-icons spacing-style"
+  style="{% render 'spacing-style', settings: bs %}"
+  {{ block.shopify_attributes }}
+>
+  <ul class="product-spec-icons__grid" role="list">
+    {% if bs.spec_1_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_1_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_1_icon }}"
+            alt="{{ bs.spec_1_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_1_label }}</span>
+      </li>
+    {% endif %}
+
+    {% if bs.spec_2_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_2_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_2_icon }}"
+            alt="{{ bs.spec_2_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_2_label }}</span>
+      </li>
+    {% endif %}
+
+    {% if bs.spec_3_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_3_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_3_icon }}"
+            alt="{{ bs.spec_3_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_3_label }}</span>
+      </li>
+    {% endif %}
+
+    {% if bs.spec_4_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_4_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_4_icon }}"
+            alt="{{ bs.spec_4_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_4_label }}</span>
+      </li>
+    {% endif %}
+
+    {% if bs.spec_5_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_5_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_5_icon }}"
+            alt="{{ bs.spec_5_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_5_label }}</span>
+      </li>
+    {% endif %}
+
+    {% if bs.spec_6_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_6_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_6_icon }}"
+            alt="{{ bs.spec_6_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_6_label }}</span>
+      </li>
+    {% endif %}
+
+    {% if bs.spec_7_label != blank %}
+      <li class="product-spec-icons__item polyspec-list">
+        {% if bs.spec_7_icon != blank %}
+          <img
+            class="product-spec-icons__img img_sub"
+            src="{{ bs.spec_7_icon }}"
+            alt="{{ bs.spec_7_label | escape }}"
+            width="23"
+            height="23"
+            loading="lazy"
+          >
+        {% endif %}
+        <span>{{ bs.spec_7_label }}</span>
+        {% if bs.spec_7_info != blank %}
+          <details class="product-spec-icons__details">
+            <summary class="product-spec-icons__summary">
+              <span class="visually-hidden">{{ bs.spec_7_info_label }}</span>
+              <span class="product-spec-icons__q" aria-hidden="true">?</span>
+            </summary>
+            <div class="product-spec-icons__info rte">{{ bs.spec_7_info }}</div>
+          </details>
+        {% endif %}
+      </li>
+    {% endif %}
+  </ul>
+</div>
+
+{% stylesheet %}
+  .product-spec-icons__grid {
+    list-style: none;
+    margin: 0;
+    padding: 1em 2em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    background: #f9f9f9;
+    align-items: center;
+  }
+
+  .product-spec-icons__item {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.25rem 0.35rem;
+    margin: 0;
+  }
+
+  .product-spec-icons__img {
+    margin-right: 5px;
+    width: 23px;
+    height: auto;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .product-spec-icons__details {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+  }
+
+  .product-spec-icons__summary {
+    list-style: none;
+    cursor: pointer;
+    display: inline-flex;
+    padding: 0;
+    margin: 0;
+  }
+
+  .product-spec-icons__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .product-spec-icons__q {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .product-spec-icons__info {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 4;
+    min-width: min(260px, 85vw);
+    margin-top: 0.35rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--color-background);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    font-size: 0.8125rem;
+  }
+
+  @media (max-width: 425px) {
+    .product-spec-icons__item {
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Spec icons",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Spec 1"
+    },
+    {
+      "type": "text",
+      "id": "spec_1_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-06_small.png?v=1614358005"
+    },
+    {
+      "type": "text",
+      "id": "spec_1_label",
+      "label": "Label",
+      "default": "100% polyester"
+    },
+    {
+      "type": "header",
+      "content": "Spec 2"
+    },
+    {
+      "type": "text",
+      "id": "spec_2_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-07_small.png?v=1614358005"
+    },
+    {
+      "type": "text",
+      "id": "spec_2_label",
+      "label": "Label",
+      "default": "Eco-solvent ink"
+    },
+    {
+      "type": "header",
+      "content": "Spec 3"
+    },
+    {
+      "type": "text",
+      "id": "spec_3_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-08_small.png?v=1614358005"
+    },
+    {
+      "type": "text",
+      "id": "spec_3_label",
+      "label": "Label",
+      "default": "Machine-washable"
+    },
+    {
+      "type": "header",
+      "content": "Spec 4"
+    },
+    {
+      "type": "text",
+      "id": "spec_4_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-09_small.png?v=1614358005"
+    },
+    {
+      "type": "text",
+      "id": "spec_4_label",
+      "label": "Label",
+      "default": "Wrinkle-free"
+    },
+    {
+      "type": "header",
+      "content": "Spec 5"
+    },
+    {
+      "type": "text",
+      "id": "spec_5_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-11_small.png?v=1614358005"
+    },
+    {
+      "type": "text",
+      "id": "spec_5_label",
+      "label": "Label",
+      "default": "Matte Finish"
+    },
+    {
+      "type": "header",
+      "content": "Spec 6"
+    },
+    {
+      "type": "text",
+      "id": "spec_6_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-10_small.png?v=1614358005"
+    },
+    {
+      "type": "text",
+      "id": "spec_6_label",
+      "label": "Label",
+      "default": "Sturdy & durable"
+    },
+    {
+      "type": "header",
+      "content": "Spec 7 (optional info)"
+    },
+    {
+      "type": "text",
+      "id": "spec_7_icon",
+      "label": "Icon URL",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Fire_Retardant-18_small.png?v=1657547489"
+    },
+    {
+      "type": "text",
+      "id": "spec_7_label",
+      "label": "Label",
+      "default": "B2 Grade Fire Retardant"
+    },
+    {
+      "type": "text",
+      "id": "spec_7_info_label",
+      "label": "Info button label",
+      "default": "Fire retardant details"
+    },
+    {
+      "type": "richtext",
+      "id": "spec_7_info",
+      "label": "Extra info",
+      "default": "<p>This fabric comes with B2 Grade Fire Retardant. We will provide certificate if you request us via email.</p>"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Spec icons",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

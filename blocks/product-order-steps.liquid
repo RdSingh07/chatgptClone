@@ -1,0 +1,171 @@
+{%- liquid
+  assign bs = block.settings
+-%}
+
+<div
+  class="product-order-steps{% unless bs.show_on_mobile %} product-order-steps--desktop-only{% endunless %} spacing-style"
+  style="{% render 'spacing-style', settings: bs %}"
+  {{ block.shopify_attributes }}
+>
+  <div class="product-order-steps__container step-container">
+    {% if bs.step_1 != blank %}
+      <div class="product-order-steps__circle circle-step">{{ bs.step_1 }}</div>
+    {% endif %}
+    <span class="product-order-steps__arrow arrow" aria-hidden="true">→</span>
+    {% if bs.step_2 != blank %}
+      <div class="product-order-steps__circle circle-step">{{ bs.step_2 }}</div>
+    {% endif %}
+    <span class="product-order-steps__arrow arrow" aria-hidden="true">→</span>
+    {% if bs.step_3 != blank %}
+      <div class="product-order-steps__circle circle-step">{{ bs.step_3 }}</div>
+    {% endif %}
+    <span class="product-order-steps__arrow arrow" aria-hidden="true">→</span>
+    {% if bs.step_4 != blank %}
+      <div class="product-order-steps__circle circle-step product-order-steps__circle--last">{{ bs.step_4 }}</div>
+    {% endif %}
+  </div>
+</div>
+
+{% stylesheet %}
+  .product-order-steps__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    min-height: 120px;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+
+  .product-order-steps__circle {
+    width: 103px;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 13px;
+    text-align: center;
+    padding: 8px;
+    line-height: 1.35;
+    background-color: #0a3161;
+  }
+
+  .product-order-steps__circle--last {
+    background-color: #1d8304;
+  }
+
+  .product-order-steps__arrow {
+    font-size: 24px;
+    color: #000;
+  }
+
+  @media (max-width: 600px) {
+    .product-order-steps--desktop-only {
+      display: none;
+    }
+
+    .product-order-steps__container {
+      flex-direction: column;
+    }
+
+    .product-order-steps__arrow {
+      transform: rotate(90deg);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Order process steps",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "step_1",
+      "label": "Step 1",
+      "default": "Upload or Email Your Artwork"
+    },
+    {
+      "type": "text",
+      "id": "step_2",
+      "label": "Step 2",
+      "default": "Get a Free 2D Mockup by Email"
+    },
+    {
+      "type": "text",
+      "id": "step_3",
+      "label": "Step 3",
+      "default": "Approve Design by Email"
+    },
+    {
+      "type": "text",
+      "id": "step_4",
+      "label": "Step 4",
+      "default": "We Start Printing Your Order"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_mobile",
+      "label": "Show on mobile",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Order process steps",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

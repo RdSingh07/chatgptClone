@@ -1,0 +1,163 @@
+{%- liquid
+  assign bs = block.settings
+  assign icon_src = ''
+  if bs.icon != blank
+    assign icon_src = bs.icon | image_url: width: 72
+  elsif bs.icon_url != blank
+    assign icon_src = bs.icon_url
+  endif
+-%}
+
+<div class="product-delivery-notice" {{ block.shopify_attributes }}>
+  <p class="product-delivery-notice__line">
+    {% if icon_src != blank %}
+      <img
+        class="product-delivery-notice__icon img_info"
+        src="{{ icon_src }}"
+        width="18"
+        height="18"
+        alt="{{ bs.message | escape }}"
+        loading="lazy"
+      >
+    {% endif %}
+    <span class="product-delivery-notice__text">{{ bs.message }}</span>
+    {% if bs.modal_content != blank or bs.modal_heading != blank %}
+      <details class="product-delivery-notice__details">
+        <summary class="product-delivery-notice__summary">
+          <span class="visually-hidden">{{ bs.modal_summary_label }}</span>
+          <svg
+            class="product-delivery-notice__info-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            width="15"
+            height="15"
+            aria-hidden="true"
+          >
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </summary>
+        <div class="product-delivery-notice__panel rte">
+          {% if bs.modal_heading != blank %}
+            <p class="product-delivery-notice__modal-title"><strong>{{ bs.modal_heading }}</strong></p>
+          {% endif %}
+          {{ bs.modal_content }}
+        </div>
+      </details>
+    {% endif %}
+  </p>
+</div>
+
+{% stylesheet %}
+  .product-delivery-notice__line {
+    font-weight: 600;
+    color: #5cb85e;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.35rem;
+  }
+
+  .product-delivery-notice__icon {
+    width: 18px;
+    height: auto;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+
+  .product-delivery-notice__details {
+    display: inline-block;
+    position: relative;
+    margin: 0;
+  }
+
+  .product-delivery-notice__summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+  }
+
+  .product-delivery-notice__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .product-delivery-notice__info-icon {
+    display: block;
+    opacity: 0.85;
+  }
+
+  .product-delivery-notice__panel {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 5;
+    min-width: min(280px, 90vw);
+    max-width: 320px;
+    margin-top: 0.35rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.15);
+    border-radius: 4px;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 0.12);
+    font-weight: 400;
+    font-size: 0.875rem;
+  }
+
+  .product-delivery-notice__modal-title {
+    margin: 0 0 0.5rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Delivery notice",
+  "tag": null,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Delivery icon (theme image)"
+    },
+    {
+      "type": "text",
+      "id": "icon_url",
+      "label": "Icon image URL (if no theme image)",
+      "default": "https://www.backdropsource.in/cdn/shop/files/Free_Delivery_small.png?v=1616151803"
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Delivery message",
+      "default": "FREE DELIVERY ( 10 - 12 Working Days )"
+    },
+    {
+      "type": "text",
+      "id": "modal_summary_label",
+      "label": "Info button accessible label",
+      "default": "More about delivery"
+    },
+    {
+      "type": "text",
+      "id": "modal_heading",
+      "label": "Info panel heading"
+    },
+    {
+      "type": "richtext",
+      "id": "modal_content",
+      "label": "Info panel content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Delivery notice",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
