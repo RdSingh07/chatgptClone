@@ -4213,3 +4213,10 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+/* Utility: Backdrop-style .hide-mobile (outline boxes, etc.) */
+@media screen and (max-width: 749px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}

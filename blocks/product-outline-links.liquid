@@ -7,9 +7,16 @@
 {% if show_1 or show_2 %}
   <div class="product-outline-links spacing-style" style="{% render 'spacing-style', settings: bs %}" {{ block.shopify_attributes }}>
     {% if show_1 and bs.box_1_label != blank and bs.box_1_url != blank %}
-      <div class="product-outline-links__box cus-outline-box">
+      <div
+        class="
+          product-outline-links__box
+          cus-outline-box
+          {% if bs.box_1_hide_mobile %} hide-mobile{% endif %}
+          {% if bs.box_1_border == 'accent' %} cus-outline-box--accent-border{% endif %}
+        "
+      >
         {% if bs.box_1_header != blank %}
-          <span class="product-outline-links__header">{{ bs.box_1_header }}</span>
+          <span class="header">{{ bs.box_1_header }}</span>
         {% endif %}
         <a class="product-outline-links__btn btn setup-instruction" href="{{ bs.box_1_url }}" {% if bs.box_1_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
           {{ bs.box_1_label }}
@@ -18,9 +25,16 @@
     {% endif %}
 
     {% if show_2 and bs.box_2_label != blank and bs.box_2_url != blank %}
-      <div class="product-outline-links__box cus-outline-box">
+      <div
+        class="
+          product-outline-links__box
+          cus-outline-box
+          {% if bs.box_2_hide_mobile %} hide-mobile{% endif %}
+          {% if bs.box_2_border == 'accent' %} cus-outline-box--accent-border{% endif %}
+        "
+      >
         {% if bs.box_2_header != blank %}
-          <span class="product-outline-links__header">{{ bs.box_2_header }}</span>
+          <span class="header">{{ bs.box_2_header }}</span>
         {% endif %}
         <a class="product-outline-links__btn btn" href="{{ bs.box_2_url }}" {% if bs.box_2_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}>
           {{ bs.box_2_label }}
@@ -37,17 +51,27 @@
     gap: 1rem;
   }
 
-  .product-outline-links__box {
-    border: 2px dashed #c62828;
+  .product-outline-links__box.cus-outline-box {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 1.25rem 1.5rem 1.5rem;
+    border: 1px dashed #aeaeae;
     border-radius: 4px;
-    padding: 1rem 1.25rem;
   }
 
-  .product-outline-links__header {
+  .product-outline-links__box.cus-outline-box.cus-outline-box--accent-border {
+    border-color: #c62828;
+    border-width: 2px;
+  }
+
+  .product-outline-links__box .header {
     display: block;
+    color: #ff935b;
     font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: var(--color-foreground);
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+    width: fit-content;
+    max-width: 100%;
   }
 
   .product-outline-links__btn {
@@ -62,6 +86,12 @@
 
   .product-outline-links__btn:hover {
     opacity: 0.9;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-outline-links__box.cus-outline-box {
+      padding: 1rem 1rem 1.25rem;
+    }
   }
 {% endstylesheet %}
 
@@ -79,6 +109,28 @@
       "id": "show_box_1",
       "label": "Show first box",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "box_1_hide_mobile",
+      "label": "Hide first box on mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "box_1_border",
+      "label": "First box border",
+      "options": [
+        {
+          "value": "neutral",
+          "label": "Gray dashed"
+        },
+        {
+          "value": "accent",
+          "label": "Red dashed"
+        }
+      ],
+      "default": "accent"
     },
     {
       "type": "text",
@@ -112,6 +164,28 @@
       "id": "show_box_2",
       "label": "Show second box",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "box_2_hide_mobile",
+      "label": "Hide second box on mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "box_2_border",
+      "label": "Second box border",
+      "options": [
+        {
+          "value": "neutral",
+          "label": "Gray dashed"
+        },
+        {
+          "value": "accent",
+          "label": "Red dashed"
+        }
+      ],
+      "default": "accent"
     },
     {
       "type": "text",

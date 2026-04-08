@@ -106,7 +106,16 @@
             </div>
           {%- endif -%}
 
-          {% content_for 'block', type: 'quantity', id: 'quantity' %}
+          {%- if block_settings.show_quantity_row_label -%}
+            <div class="backdrop-qty-row">
+              <span class="backdrop-qty-row__label">{{ block_settings.quantity_row_label }}</span>
+              <div class="backdrop-qty-row__control">
+                {% content_for 'block', type: 'quantity', id: 'quantity' %}
+              </div>
+            </div>
+          {%- else -%}
+            {% content_for 'block', type: 'quantity', id: 'quantity' %}
+          {%- endif -%}
 
           {%- if has_quantity_rules -%}
             <div
@@ -396,6 +405,24 @@
     {
       "type": "paragraph",
       "content": "t:content.gift_card_form_description"
+    },
+    {
+      "type": "header",
+      "content": "Quantity display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quantity_row_label",
+      "label": "Show quantity label row",
+      "info": "Matches backdrop-style label + field row when used inside an outline box.",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "quantity_row_label",
+      "label": "Quantity label",
+      "default": "Quantity",
+      "visible_if": "{{ block.settings.show_quantity_row_label }}"
     },
     {
       "type": "header",

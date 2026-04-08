@@ -1,0 +1,245 @@
+{%- liquid
+  assign s = block.settings
+  assign box_class = 'cus-outline-box'
+  if s.hide_mobile
+    assign box_class = box_class | append: ' hide-mobile'
+  endif
+  if s.border_style == 'accent'
+    assign box_class = box_class | append: ' cus-outline-box--accent-border'
+  endif
+-%}
+
+{% capture outline_children %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+<div
+  class="{{ box_class }}"
+  {{ block.shopify_attributes }}
+>
+  {% if s.heading != blank %}
+    <p class="header">{{ s.heading }}</p>
+  {% endif %}
+
+  {% if s.subheading != blank %}
+    <p class="cus-outline-box__subheading">{{ s.subheading }}</p>
+  {% endif %}
+
+  <div class="cus-outline-box__content">
+    {{- outline_children -}}
+  </div>
+</div>
+
+{% stylesheet %}
+  .cus-outline-box {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1.25rem 1.5rem 1.5rem;
+    border: 1px dashed #aeaeae;
+    border-radius: 4px;
+    background: var(--color-background);
+  }
+
+  .cus-outline-box--accent-border {
+    border-color: #c62828;
+    border-width: 2px;
+  }
+
+  .cus-outline-box .header {
+    display: block;
+    color: #ff935b;
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    background: var(--color-background);
+    line-height: 1.3;
+  }
+
+  .cus-outline-box__subheading {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: rgb(var(--color-foreground-rgb) / 0.85);
+  }
+
+  .cus-outline-box__content {
+    width: 100%;
+  }
+
+  .cus-outline-box .variant-picker {
+    width: 100%;
+  }
+
+  .cus-outline-box .variant-picker__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .cus-outline-box .variant-option--dropdowns {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .cus-outline-box .variant-option--dropdowns > label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.35rem;
+    width: 100%;
+  }
+
+  .cus-outline-box .variant-option__select-wrapper {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .cus-outline-box .variant-option__select {
+    min-height: 44px;
+    font-size: 1rem;
+  }
+
+  .cus-outline-box .buy-buttons-block .product-form-buttons {
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .cus-outline-box .backdrop-qty-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .cus-outline-box .backdrop-qty-row__label {
+    flex: 0 0 auto;
+    min-width: 5.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .cus-outline-box .backdrop-qty-row__control {
+    flex: 1 1 12rem;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .cus-outline-box .backdrop-qty-row__control .quantity-selector-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cus-outline-box .backdrop-qty-row__control .quantity-selector {
+    width: 100%;
+    max-width: 100%;
+    justify-content: stretch;
+    border: var(--style-border-width-inputs) solid var(--color-border);
+    border-radius: var(--style-border-radius-inputs);
+    background: var(--color-input-background);
+  }
+
+  .cus-outline-box .backdrop-qty-row__control .quantity-selector input {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    font-size: 1rem;
+    min-height: 44px;
+  }
+
+  .cus-outline-box .backdrop-qty-row__control .quantity-minus,
+  .cus-outline-box .backdrop-qty-row__control .quantity-plus {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .cus-outline-box {
+      padding: 1rem 1rem 1.25rem;
+      margin-inline: 0;
+    }
+
+    .cus-outline-box .variant-option__select {
+      font-size: 16px;
+    }
+
+    .cus-outline-box .backdrop-qty-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .cus-outline-box .backdrop-qty-row__label {
+      min-width: 0;
+      width: 100%;
+    }
+
+    .cus-outline-box .backdrop-qty-row__control {
+      flex-basis: auto;
+      width: 100%;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Outline box",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Step / box heading",
+      "default": "Step 1:"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Intro text",
+      "default": "Select the frame size, printing side & frame structure options"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_mobile",
+      "label": "Hide on mobile",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "border_style",
+      "label": "Border",
+      "options": [
+        {
+          "value": "neutral",
+          "label": "Gray dashed"
+        },
+        {
+          "value": "accent",
+          "label": "Red dashed (accent)"
+        }
+      ],
+      "default": "neutral"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Outline box",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}

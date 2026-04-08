@@ -26,14 +26,65 @@
   }
 
   .product-form-buttons
-    > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing, .product-form-text__error) {
+    > *:not(
+      .quantity-selector-wrapper,
+      .quantity-rules,
+      .quantity-label,
+      .volume-pricing,
+      .product-form-text__error,
+      .backdrop-qty-row
+    ) {
     flex: 1 1 var(--buy-button-preferred-width, 0);
     min-width: fit-content;
   }
 
   .product-form-buttons--stacked
-    > *:not(.quantity-selector-wrapper, .quantity-rules, .quantity-label, .volume-pricing, .product-form-text__error) {
+    > *:not(
+      .quantity-selector-wrapper,
+      .quantity-rules,
+      .quantity-label,
+      .volume-pricing,
+      .product-form-text__error,
+      .backdrop-qty-row
+    ) {
     flex-basis: 51%;
+  }
+
+  .product-form-buttons > .backdrop-qty-row {
+    flex: 1 0 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  .backdrop-qty-row__label {
+    flex: 0 0 auto;
+    font-weight: 600;
+    font-size: var(--font-size--sm);
+  }
+
+  .backdrop-qty-row__control {
+    flex: 1 1 12rem;
+    min-width: 0;
+  }
+
+  .backdrop-qty-row__control .quantity-selector-wrapper {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    .product-form-buttons > .backdrop-qty-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .backdrop-qty-row__control {
+      flex-basis: auto;
+      width: 100%;
+    }
   }
 
   .product-form-buttons button {
