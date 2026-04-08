@@ -202,9 +202,9 @@
                       "name": "t:names.text",
                       "settings": {
                         "text": "<p>(Ex. GST)</p>",
-                        "width": "fit-content",
+                        "width": "100%",
                         "max_width": "none",
-                        "alignment": "left",
+                        "alignment": "center",
                         "type_preset": "h3",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
@@ -229,7 +229,7 @@
                       "settings": {
                         "type_preset": "h3",
                         "width": "100%",
-                        "alignment": "left",
+                        "alignment": "right",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
                         "line_height": "normal",
