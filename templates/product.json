@@ -207,6 +207,8 @@
                 "stacking": true,
                 "show_pickup_availability": false,
                 "gift_card_form": true,
+                "show_quantity_row_label": false,
+                "quantity_row_label": "Quantity",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -241,11 +243,15 @@
               "name": "Template & quote links",
               "settings": {
                 "show_box_1": true,
+                "box_1_hide_mobile": false,
+                "box_1_border": "accent",
                 "box_1_header": "Graphics Templates & Setup Guide",
                 "box_1_label": "Design Template & Assembly Guide",
                 "box_1_url": "https://mega.nz/folder/BZVEWB5R#hIFE7nFQ4p0kO3BwpjrxZg",
                 "box_1_new_tab": true,
                 "show_box_2": false,
+                "box_2_hide_mobile": false,
+                "box_2_border": "accent",
                 "box_2_header": "Get a Custom Size Quote",
                 "box_2_label": "Get a Custom Size Quote",
                 "box_2_url": "",
@@ -325,6 +331,85 @@
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
         "padding-block-end": 0
+      }
+    },
+    "how_to_order_cD6gTe": {
+      "type": "how-to-order",
+      "blocks": {
+        "step_EHqJhj": {
+          "type": "step",
+          "settings": {
+            "title": "Select Your Product"
+          }
+        },
+        "step_Vyc3d4": {
+          "type": "step",
+          "settings": {
+            "title": "Choose Size, Options & Add-ons"
+          }
+        },
+        "step_HpPtTF": {
+          "type": "step",
+          "settings": {
+            "title": "Upload Artwork or Request Design Help"
+          }
+        },
+        "step_Ee9UEa": {
+          "type": "step",
+          "settings": {
+            "title": "Checkout & Receive Email Proof"
+          }
+        },
+        "step_iq6Kfb": {
+          "type": "step",
+          "settings": {
+            "title": "Approve Your Artwork"
+          }
+        },
+        "step_7YfDei": {
+          "type": "step",
+          "settings": {
+            "title": "We Print & Ship to Your Door"
+          }
+        }
+      },
+      "block_order": [
+        "step_EHqJhj",
+        "step_Vyc3d4",
+        "step_HpPtTF",
+        "step_Ee9UEa",
+        "step_iq6Kfb",
+        "step_7YfDei"
+      ],
+      "name": "How to order",
+      "settings": {
+        "heading": "How to Order?",
+        "section_width": "page-width",
+        "color_scheme": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+      }
+    },
+    "product_detail_tabs_bds": {
+      "type": "product-detail-tabs",
+      "settings": {
+        "aria_label": "Product information tabs",
+        "tab_1_label": "Overview & Details",
+        "tab_1_content": "",
+        "tab_2_label": "Product Dimensions",
+        "tab_2_content": "",
+        "tab_3_label": "What's Included",
+        "tab_3_content": "",
+        "tab_4_label": "Artwork & File Setup",
+        "tab_4_content": "",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 36,
+        "padding-block-end": 36,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
       }
     },
     "product_recommendations_qggXJq": {
@@ -467,26 +552,11 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
-    },
-    "product_detail_tabs_bds": {
-      "type": "product-detail-tabs",
-      "settings": {
-        "aria_label": "Product information tabs",
-        "tab_1_label": "Overview & Details",
-        "tab_2_label": "Product Dimensions",
-        "tab_3_label": "What's Included",
-        "tab_4_label": "Artwork & File Setup",
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "padding-block-start": 36,
-        "padding-block-end": 36,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0
-      }
     }
   },
   "order": [
     "main",
+    "how_to_order_cD6gTe",
     "product_detail_tabs_bds",
     "product_recommendations_qggXJq"
   ]
