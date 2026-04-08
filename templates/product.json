@@ -188,86 +188,64 @@
               },
               "blocks": {}
             },
-            "step1_outline_bds": {
-              "type": "cus-outline-box",
-              "name": "Step 1 — options & quantity",
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
               "settings": {
-                "heading": "Step 1:",
-                "subheading": "Select the frame size, printing side & frame structure options",
-                "hide_mobile": false,
-                "border_style": "accent"
+                "variant_style": "dropdowns",
+                "show_swatches": false,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": true,
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {
-                "variant_picker_R3rGDr": {
-                  "type": "variant-picker",
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
                   "settings": {
-                    "variant_style": "dropdowns",
-                    "show_swatches": false,
-                    "alignment": "left",
-                    "padding-block-start": 0,
-                    "padding-block-end": 4,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "style_class": "button"
                   },
                   "blocks": {}
                 },
-                "buy_buttons_eYQEYi": {
-                  "type": "buy-buttons",
-                  "settings": {
-                    "stacking": true,
-                    "show_pickup_availability": false,
-                    "gift_card_form": true,
-                    "show_quantity_row_label": true,
-                    "quantity_row_label": "Quantity",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "quantity": {
-                      "type": "quantity",
-                      "static": true,
-                      "settings": {},
-                      "blocks": {}
-                    },
-                    "add-to-cart": {
-                      "type": "add-to-cart",
-                      "static": true,
-                      "settings": {
-                        "style_class": "button"
-                      },
-                      "blocks": {}
-                    },
-                    "accelerated-checkout": {
-                      "type": "accelerated-checkout",
-                      "static": true,
-                      "settings": {},
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": []
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
                 }
               },
-              "block_order": [
-                "variant_picker_R3rGDr",
-                "buy_buttons_eYQEYi"
-              ]
+              "block_order": []
             },
             "product_outline_bds": {
               "type": "product-outline-links",
               "name": "Template & quote links",
               "settings": {
                 "show_box_1": true,
-                "box_1_hide_mobile": false,
-                "box_1_border": "accent",
                 "box_1_header": "Graphics Templates & Setup Guide",
                 "box_1_label": "Design Template & Assembly Guide",
                 "box_1_url": "https://mega.nz/folder/BZVEWB5R#hIFE7nFQ4p0kO3BwpjrxZg",
                 "box_1_new_tab": true,
                 "show_box_2": false,
-                "box_2_hide_mobile": false,
-                "box_2_border": "accent",
                 "box_2_header": "Get a Custom Size Quote",
                 "box_2_label": "Get a Custom Size Quote",
                 "box_2_url": "",
@@ -329,7 +307,8 @@
             "product_meta_bds",
             "product_delivery_bds",
             "divider_VJhene",
-            "step1_outline_bds",
+            "variant_picker_R3rGDr",
+            "buy_buttons_eYQEYi",
             "product_outline_bds",
             "product_order_steps_bds",
             "product_spec_bds"
@@ -355,11 +334,11 @@
           "type": "text",
           "name": "t:names.header",
           "settings": {
-            "text": "<h3>You may also like </h3>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
+            "text": "<h2>You may also like </h2>",
+            "width": "100%",
+            "max_width": "none",
+            "alignment": "center",
+            "type_preset": "h2",
             "font": "var(--font-primary--family)",
             "font_size": "",
             "line_height": "normal",
@@ -473,14 +452,14 @@
       "settings": {
         "product": "{{ closest.product }}",
         "recommendation_type": "related",
-        "layout_type": "grid",
+        "layout_type": "carousel",
         "carousel_on_mobile": false,
-        "max_products": 4,
+        "max_products": 10,
         "columns": 4,
         "mobile_columns": "2",
         "columns_gap": 12,
         "rows_gap": 24,
-        "icons_style": "arrow",
+        "icons_style": "chevron_large",
         "icons_shape": "none",
         "section_width": "page-width",
         "gap": 28,
