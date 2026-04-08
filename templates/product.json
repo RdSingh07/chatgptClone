@@ -227,7 +227,7 @@
                       "type": "sku",
                       "name": "t:names.product_sku",
                       "settings": {
-                        "type_preset": "h3",
+                        "type_preset": "h4",
                         "width": "100%",
                         "alignment": "right",
                         "font": "var(--font-body--family)",
