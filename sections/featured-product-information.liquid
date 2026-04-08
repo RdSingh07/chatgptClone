@@ -11,6 +11,14 @@
   %}
 {% endcapture %}
 
+{% capture media_aside %}
+  {% content_for 'block',
+    type: '_product-media-aside',
+    id: 'media-aside',
+    closest.product: section.settings.product
+  %}
+{% endcapture %}
+
 {% capture product_details %}
   {% content_for 'block',
     type: '_product-details',
@@ -29,6 +37,7 @@
     section_id: section.id,
     settings: section.settings,
     media_gallery: media_gallery,
+    media_aside: media_aside,
     product_details: product_details,
     additional_blocks: additional_blocks
   %}
@@ -166,6 +175,20 @@
             "thumbnail_position": "bottom",
             "thumbnail_width": 44
           }
+        },
+        "media-aside": {
+          "type": "_product-media-aside",
+          "static": true,
+          "settings": {
+            "show_top_rule": false,
+            "show_bottom_rule": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {},
+          "block_order": []
         },
         "product-details": {
           "type": "_product-details",

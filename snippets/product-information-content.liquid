@@ -8,12 +8,17 @@
   @param {string} section_id - Unique section ID
   @param {object} settings - Section settings object
   @param {string} media_gallery - Captured HTML for the product media gallery block
+  @param {string} [media_aside] - Optional HTML below the gallery (same column as media)
   @param {string} product_details - Captured HTML for the product details block
   @param {string} additional_blocks - Captured HTML for additional section blocks
 
   @example
   {% capture media_gallery %}
     {% content_for 'block', type: '_product-media-gallery', id: 'media-gallery', closest.product: product %}
+  {% endcapture %}
+
+  {% capture media_aside %}
+    {% content_for 'block', type: '_product-media-aside', id: 'media-aside', closest.product: product %}
   {% endcapture %}
 
   {% capture product_details %}
@@ -29,6 +34,7 @@
     section_id: section.id,
     settings: section.settings,
     media_gallery: media_gallery,
+    media_aside: media_aside,
     product_details: product_details,
     additional_blocks: additional_blocks
   %}
@@ -97,6 +103,11 @@
         data-testid="product-information-media"
       >
         {{ media_gallery }}
+        {% if media_aside != blank %}
+          <div class="product-information__media-aside">
+            {{ media_aside }}
+          </div>
+        {% endif %}
       </div>
     {% endcapture %}
 
@@ -138,6 +149,11 @@
   .product-information__media .product-media-gallery__placeholder-image {
     width: 100%;
     height: 100%;
+  }
+
+  .product-information__media-aside {
+    width: 100%;
+    min-width: 0;
   }
 
   /* Mobile styles */

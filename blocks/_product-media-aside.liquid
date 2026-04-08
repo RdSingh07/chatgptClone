@@ -1,0 +1,143 @@
+{%- doc -%}
+  Content below the product media gallery (same column). Matches legacy layout: bullets under images.
+{%- enddoc -%}
+
+{% capture product_media_aside_inner %}
+  {% content_for 'blocks' %}
+{% endcapture %}
+
+<div
+  class="product-media-aside spacing-style"
+  style="{% render 'spacing-style', settings: block.settings %}"
+  {{ block.shopify_attributes }}
+>
+  {% if product_media_aside_inner != blank and block.settings.show_top_rule %}
+    <hr class="product-media-aside__rule" aria-hidden="true">
+  {% endif %}
+
+  <div class="product-media-aside__inner">
+    {{ product_media_aside_inner }}
+  </div>
+
+  {% if product_media_aside_inner != blank and block.settings.show_bottom_rule %}
+    <hr class="product-media-aside__rule" aria-hidden="true">
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  .product-media-aside {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .product-media-aside__inner {
+    width: 100%;
+  }
+
+  .product-media-aside__inner > *:first-child {
+    margin-top: 0;
+  }
+
+  .product-media-aside__inner > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .product-media-aside__rule {
+    border: 0;
+    border-top: 1px solid rgb(var(--color-foreground-rgb) / 0.12);
+    margin: 1.25rem 0;
+  }
+
+  .product-media-aside__rule:first-child {
+    margin-top: 0;
+  }
+
+  .product-media-aside__rule:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .product-media-aside {
+      margin-top: 0.5rem;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Media column extras",
+  "tag": null,
+  "blocks": [
+    {
+      "type": "product-highlight-bullets"
+    },
+    {
+      "type": "text"
+    },
+    {
+      "type": "_divider"
+    },
+    {
+      "type": "spacer"
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_top_rule",
+      "label": "Show line above content",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_bottom_rule",
+      "label": "Show line below content",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ]
+}
+{% endschema %}

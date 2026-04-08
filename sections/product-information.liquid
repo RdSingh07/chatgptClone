@@ -12,6 +12,14 @@
   -%}
 {% endcapture %}
 
+{% capture media_aside %}
+  {%- content_for 'block',
+    type: '_product-media-aside',
+    id: 'media-aside',
+    closest.product: closest.product
+  -%}
+{% endcapture %}
+
 {% capture product_details %}
   {% content_for 'block',
     type: '_product-details',
@@ -172,6 +180,7 @@
   section_id: section.id,
   settings: section.settings,
   media_gallery: media_gallery,
+  media_aside: media_aside,
   product_details: product_details,
   additional_blocks: additional_blocks
 %}

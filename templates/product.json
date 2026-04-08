@@ -41,6 +41,33 @@
           },
           "blocks": {}
         },
+        "media-aside": {
+          "type": "_product-media-aside",
+          "static": true,
+          "settings": {
+            "show_top_rule": true,
+            "show_bottom_rule": true,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_highlights_media_col": {
+              "type": "product-highlight-bullets",
+              "name": "Product highlights",
+              "settings": {
+                "content": "<ul><li>Sleek straight design for a clean, professional backdrop appearance</li><li>Premium tension fabric ensures wrinkle-free, high-resolution graphics</li><li>Durable aluminum frame offers strength without added weight</li><li>Includes optional accessories: red carpet, LED lighting, or stable base</li><li>Ideal for exhibitions, trade shows, press events, and photo ops</li><li>Tool-free assembly – sets up in minutes with minimal effort</li><li>Lightweight and portable – perfect for frequent event use</li><li>Available in multiple widths to suit standard and large booth sizes</li></ul>",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": ["product_highlights_media_col"]
+        },
         "product-details": {
           "type": "_product-details",
           "static": true,
@@ -138,19 +165,6 @@
               "block_order": [
                 "text_xrnftG"
               ]
-            },
-            "product_highlights_bds": {
-              "type": "product-highlight-bullets",
-              "name": "Product highlights",
-              "disabled": true,
-              "settings": {
-                "content": "<ul><li>Sleek straight design for a clean, professional backdrop appearance</li><li>Premium tension fabric ensures wrinkle-free, high-resolution graphics</li><li>Durable aluminum frame offers strength without added weight</li><li>Includes optional accessories: red carpet, LED lighting, or stable base</li><li>Ideal for exhibitions, trade shows, press events, and photo ops</li><li>Tool-free assembly – sets up in minutes with minimal effort</li><li>Lightweight and portable – perfect for frequent event use</li><li>Available in multiple widths to suit standard and large booth sizes</li></ul>",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
             },
             "product_meta_bds": {
               "type": "product-meta-inline",
@@ -265,7 +279,7 @@
                 "step_2": "Get a Free 2D Mockup by Email",
                 "step_3": "Approve Design by Email",
                 "step_4": "We Start Printing Your Order",
-                "show_on_mobile": false,
+                "show_on_mobile": true,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -303,7 +317,6 @@
           },
           "block_order": [
             "group_icgrde",
-            "product_highlights_bds",
             "product_meta_bds",
             "product_delivery_bds",
             "divider_VJhene",
