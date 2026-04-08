@@ -1,0 +1,132 @@
+{%- doc -%}
+  Inner HTML for one tab panel. Section wraps with .tab-content and .rte.
+
+  @param {number} tab_index - 1–4
+  @param {string} content - richtext from section settings
+{%- enddoc -%}
+
+{% liquid
+  assign has_custom = false
+  if content != blank
+    assign stripped = content | strip
+    if stripped != blank
+      assign has_custom = true
+    endif
+  endif
+%}
+
+{% if has_custom %}
+  {{ content }}
+{% else %}
+  {% case tab_index %}
+    {% when 1 %}
+      <p>
+        Make a bold visual statement at your next trade show, expo, or promotional event with our Premium Straight
+        Tension Fabric Backdrop Display. This display is perfect for exhibitors, event planners, and brands that want
+        high-impact visuals with a hassle-free setup. Featuring dye-sublimation printing on wrinkle-resistant
+        polyester fabric, it delivers vibrant colors, crisp details, and a professional presentation every time.
+        Lightweight yet durable, it’s the ideal choice for trade show booths, media walls, conference backdrops, and
+        branded environments.
+      </p>
+      <h4>📏 Product Specifications</h4>
+      <ul>
+        <li><strong>Frame:</strong> Durable aluminum bungee-corded frame with wide aluminum bases (32mm diameter)</li>
+        <li><strong>Fabric:</strong> 260gsm wrinkle-resistant, fire-retardant, and machine-washable polyester</li>
+        <li><strong>Print Method:</strong> Full-color CMYK dye-sublimation for rich, lasting prints</li>
+        <li><strong>Setup Time:</strong> Fast tool-free assembly using snap-lock tube connectors</li>
+        <li><strong>Use Cases:</strong> Ideal for expos, press events, retail stores, lobbies, and photography backdrops</li>
+      </ul>
+      <h4>🎯 Key Features</h4>
+      <ul>
+        <li>Vibrant, high-resolution graphics with eco-friendly dye sublimation printing</li>
+        <li>Wrinkle-resistant, fire-retardant, and machine washable fabric</li>
+        <li>Lightweight aluminum frame ensures portability and strength</li>
+        <li>Quick and tool-free setup using snap-lock connectors</li>
+        <li>Available in single or double-sided print options</li>
+        <li>Optional add-ons: LED lights, hard carry cases, counters, and accessories</li>
+      </ul>
+      <h4>🌍 Shipping &amp; Installation</h4>
+      <ul>
+        <li><strong>Production Lead Time:</strong> 24 business hours after artwork approval</li>
+        <li><strong>Domestic Shipping:</strong> Delivered in 5–7 business days across the IND.</li>
+        <li><strong>International Shipping:</strong> Available with customs-ready support</li>
+        <li><strong>Pickup Services:</strong> Not available — all items are shipped</li>
+        <li><strong>Installation:</strong> Optional professional setup available on request</li>
+        <li>
+          <strong>Assembly Video:</strong>
+          <a href="https://youtu.be/jJGLLSZJZvg?feature=shared" target="_blank" rel="noopener noreferrer">Watch on YouTube</a>
+        </li>
+      </ul>
+    {% when 2 %}
+      <p>
+        Size : 2m wide :<br>
+        Frame dimension : 2m wide x 2.3m height<br>
+        Graphic Dimension : 2030mm wide x 2280mm height<br>
+        Package Dimension : 27 cm x 27 cm x 76 cm<br>
+        Package Weight : 5kgs
+      </p>
+      <p>
+        Size: 2.4m Wide:<br>
+        Frame Dimensions : 2.4m wide x 2.3m height<br>
+        Graphics Dimension : 2438mm wide x 2280mm height<br>
+        Package Dimension : 27 cm x 27 cm x 76 cm<br>
+        Package Weight : 5.3kgs
+      </p>
+      <p>
+        Size: 3m Wide:<br>
+        Frame Dimensions : 3m wide x 2.3m height<br>
+        Graphics Dimension : 2922mm wide x 2280mm height<br>
+        Package Dimension : 27 cm x 27 cm x 76 cm<br>
+        Package Weight : 7.5kgs
+      </p>
+      <p>
+        Size: 4m Wide:<br>
+        Frame Dimensions : 4m wide x 2.3m height<br>
+        Graphics Dimension : 4000mm wide x 2280mm height<br>
+        Package Dimension : 37 cm x 37 cm x 80 cm<br>
+        Package Weight : 9.6kgs
+      </p>
+      <p>
+        Size: 5m Wide:<br>
+        Frame Dimensions: 5m wide x 2.3m height<br>
+        Graphics Dimension : 5000mm wide x 2280mm height<br>
+        Package Dimension : 37 cm x 37 cm x 80 cm<br>
+        Package Weight : 10.5kgs
+      </p>
+      <p>
+        Size: 6m Wide:<br>
+        Frame Dimensions : 6m wide x 2.3m height<br>
+        Graphics Dimension : 5960mm wide x 2280mm height<br>
+        Package Dimension : 37 cm x 37 cm x 80 cm<br>
+        Package Weight : 11kgs
+      </p>
+    {% when 3 %}
+      <h4>📦 What’s Included</h4>
+      <ul>
+        <li>1 x Lightweight aluminum frame with snap-lock tubing</li>
+        <li>2 x Aluminum base feet for enhanced stability.</li>
+        <li>1 x Custom-printed fabric graphic (single or double-sided)</li>
+        <li>1 x Soft nylon carry bag for portability</li>
+        <li>Step-by-step assembly instructions</li>
+      </ul>
+    {% when 4 %}
+      <h4>🎨 Artwork &amp; File Setup</h4>
+      <p>
+        We accept your artwork through <strong>WeTransfer, Dropbox, Google Drive, Email</strong>, or directly via the
+        <strong>Upload Artwork</strong> button above. If you don’t have a design ready, our in-house creative team is
+        here to help — we’ll bring your brand to life with a professionally designed layout tailored to this product.
+      </p>
+      <p>
+        To ensure you’re confident before we print, we also offer a <strong>FREE 2D mockup preview</strong>. Use the
+        “<strong>Request Free 2D Mockup Image</strong>” button at the top of the page and send us your content or
+        files. We’ll show you how your backdrop will look in real life.
+      </p>
+      <ul>
+        <li><strong>Accepted Formats:</strong> AI, PSD, PDF (high resolution preferred)</li>
+        <li><strong>Resolution:</strong> Minimum 150 DPI at full size</li>
+        <li><strong>Bleed:</strong> 1 inch on all sides (keep text/logos away from edges)</li>
+        <li><strong>Color Mode:</strong> CMYK for optimal print accuracy</li>
+        <li><strong>Fonts:</strong> Outline all fonts or attach font files</li>
+      </ul>
+  {% endcase %}
+{% endif %}

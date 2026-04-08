@@ -488,10 +488,27 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "product_detail_tabs_bds": {
+      "type": "product-detail-tabs",
+      "settings": {
+        "aria_label": "Product information tabs",
+        "tab_1_label": "Overview & Details",
+        "tab_2_label": "Product Dimensions",
+        "tab_3_label": "What's Included",
+        "tab_4_label": "Artwork & File Setup",
+        "section_width": "page-width",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 36,
+        "padding-block-end": 36,
+        "padding-inline-start": 0,
+        "padding-inline-end": 0
+      }
     }
   },
   "order": [
     "main",
+    "product_detail_tabs_bds",
     "product_recommendations_qggXJq"
   ]
 }
