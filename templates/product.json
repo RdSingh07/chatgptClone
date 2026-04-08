@@ -139,6 +139,19 @@
                 "text_xrnftG"
               ]
             },
+            "product_highlights_bds": {
+              "type": "product-highlight-bullets",
+              "name": "Product highlights",
+              "disabled": true,
+              "settings": {
+                "content": "<ul><li>Sleek straight design for a clean, professional backdrop appearance</li><li>Premium tension fabric ensures wrinkle-free, high-resolution graphics</li><li>Durable aluminum frame offers strength without added weight</li><li>Includes optional accessories: red carpet, LED lighting, or stable base</li><li>Ideal for exhibitions, trade shows, press events, and photo ops</li><li>Tool-free assembly – sets up in minutes with minimal effort</li><li>Lightweight and portable – perfect for frequent event use</li><li>Available in multiple widths to suit standard and large booth sizes</li></ul>",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "product_meta_bds": {
               "type": "product-meta-inline",
               "name": "Product meta row",
@@ -160,17 +173,6 @@
                 "modal_summary_label": "More about delivery",
                 "modal_heading": "Delivery times",
                 "modal_content": "<p>Free delivery in 10–12 working days after your artwork is approved. Times may vary by region.</p>"
-              },
-              "blocks": {}
-            },
-            "product_highlights_bds": {
-              "type": "product-highlight-bullets",
-              "name": "Product highlights",
-              "settings": {
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
               },
               "blocks": {}
             },
@@ -275,6 +277,22 @@
               "type": "product-spec-icons",
               "name": "Spec icons",
               "settings": {
+                "spec_1_icon": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-06_small.png?v=1614358005",
+                "spec_1_label": "100% polyester",
+                "spec_2_icon": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-07_small.png?v=1614358005",
+                "spec_2_label": "Eco-solvent ink",
+                "spec_3_icon": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-08_small.png?v=1614358005",
+                "spec_3_label": "Machine-washable",
+                "spec_4_icon": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-09_small.png?v=1614358005",
+                "spec_4_label": "Wrinkle-free",
+                "spec_5_icon": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-11_small.png?v=1614358005",
+                "spec_5_label": "Matte Finish",
+                "spec_6_icon": "https://www.backdropsource.in/cdn/shop/files/Specs_icons-10_small.png?v=1614358005",
+                "spec_6_label": "Sturdy & durable",
+                "spec_7_icon": "https://www.backdropsource.in/cdn/shop/files/Fire_Retardant-18_small.png?v=1657547489",
+                "spec_7_label": "B2 Grade Fire Retardant",
+                "spec_7_info_label": "Fire retardant details",
+                "spec_7_info": "<p>This fabric comes with B2 Grade Fire Retardant. We will provide certificate if you request us via email.</p>",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
