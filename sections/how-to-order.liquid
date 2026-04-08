@@ -1,0 +1,292 @@
+{%- doc -%}
+  "How to order" steps grid: 6 columns desktop, 3 tablet, 1 mobile (matches legacy grid breakpoints).
+{%- enddoc -%}
+
+<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+<div
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} section-wrapper"
+>
+  <div
+    class="how-to-order spacing-style section-content-wrapper"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    {% if section.settings.heading != blank %}
+      <h2 class="how-to-order__title">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    <div class="how-to-order__grid">
+      {%- liquid
+        assign how_to_order_step = 0
+      -%}
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'step' %}
+            {%- liquid
+              assign how_to_order_step = how_to_order_step | plus: 1
+              assign padded_index = how_to_order_step | prepend: '00' | slice: -2, 2
+              assign fallback_src = 'https://cdn.shopify.com/s/files/1/0321/0097/4724/files/How_to_Order-' | append: padded_index | append: '.png?v=1587131213'
+            -%}
+            <div class="how-to-order__cell" {{ block.shopify_attributes }}>
+              <div class="how-to-order__card">
+                <div class="how-to-order__icon">
+                  {% if block.settings.image != blank %}
+                    {% render 'image',
+                      image: block.settings.image,
+                      height: 134,
+                      class: 'how-to-order__img',
+                      alt_text_fallback: block.settings.title
+                    %}
+                  {% else %}
+                    <img
+                      class="how-to-order__img"
+                      src="{{ fallback_src }}"
+                      width="67"
+                      height="67"
+                      alt="{{ block.settings.title | escape }}"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                </div>
+                {% if block.settings.title != blank %}
+                  <p class="how-to-order__label">{{ block.settings.title | escape }}</p>
+                {% endif %}
+              </div>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .how-to-order {
+    --how-to-order-title: #001f3f;
+    --how-to-order-caption: #666666;
+    clear: both;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .how-to-order__title {
+    margin: 0 0 1.875rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 200;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    letter-spacing: 0.02em;
+    color: var(--how-to-order-title);
+  }
+
+  .how-to-order__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media screen and (min-width: 750px) {
+    .how-to-order__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .how-to-order__grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.5rem 0.75rem;
+    }
+  }
+
+  .how-to-order__cell {
+    min-width: 0;
+  }
+
+  .how-to-order__card {
+    text-align: center;
+    padding: 4% 10%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .how-to-order__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .how-to-order__img {
+    width: 67px;
+    height: 67px;
+    max-width: 100%;
+    object-fit: contain;
+    vertical-align: middle;
+  }
+
+  .how-to-order__label {
+    margin: 0;
+    text-align: center;
+    color: var(--how-to-order-caption);
+    font-weight: 200;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "How to order",
+  "tag": "section",
+  "class": "how-to-order-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How to Order?"
+    },
+    {
+      "type": "header",
+      "content": "t:content.layout"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:settings.image",
+          "info": "Optional. Defaults to numbered icons from your original theme when empty."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "t:settings.title",
+          "default": "Step title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How to order",
+      "category": "t:categories.storytelling",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Select Your Product"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Choose Size, Options & Add-ons"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Upload Artwork or Request Design Help"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Checkout & Receive Email Proof"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Approve Your Artwork"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "We Print & Ship to Your Door"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
