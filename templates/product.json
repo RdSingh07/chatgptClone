@@ -203,7 +203,7 @@
                       "settings": {
                         "text": "<p>(Ex. GST)</p>",
                         "width": "fit-content",
-                        "max_width": "normal",
+                        "max_width": "none",
                         "alignment": "left",
                         "type_preset": "h3",
                         "font": "var(--font-body--family)",
