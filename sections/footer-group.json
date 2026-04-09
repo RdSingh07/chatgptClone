@@ -11,46 +11,6 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
-    "footer_contact_bar_bds": {
-      "type": "footer-contact-bar",
-      "settings": {
-        "bar_height": 56,
-        "cart_label": "Cart",
-        "phone_label": "Call +91 77080 08073",
-        "phone_url": "tel:+917708008073",
-        "email_label": "support@backdropsource.in",
-        "email_url": "mailto:support@backdropsource.in",
-        "chat_label": "Chat Now!",
-        "chat_url": "",
-        "chat_new_tab": false,
-        "whatsapp_url": "https://wa.me/917708008073",
-        "whatsapp_aria_label": "WhatsApp us"
-      }
-    },
-    "footer_site_bds_main": {
-      "type": "footer-site-bds",
-      "settings": {
-        "footer_bg_color": "#0a2a51",
-        "section_width": "page-width",
-        "heading_designs": "CUSTOM DESIGNS",
-        "heading_service": "CUSTOMER SERVICE",
-        "heading_touch": "GET IN TOUCH",
-        "address_text": "23-26, Ansari St, Ram Nagar, Coimbatore, Tamil Nadu 641009",
-        "email_display": "support@backdropsource.in",
-        "email_url": "mailto:support@backdropsource.in",
-        "phone_display": "+91 77080 08073",
-        "phone_url": "tel:+917708008073",
-        "badge_image_url": "https://www.backdropsource.in/cdn/shop/files/22_Service_Icon_879b6d7c-6087-4930-91bc-775e1b1ca4b3_large.png?v=1767331514",
-        "badge_alt": "Years of service",
-        "show_social_row": true,
-        "show_powered_by": false,
-        "show_payment_icons": true,
-        "padding-block-start": 36,
-        "padding-block-end": 24,
-        "padding-inline-start": 0,
-        "padding-inline-end": 0
-      }
-    },
     "footer_m9NzUG": {
       "type": "footer",
       "blocks": {
@@ -155,9 +115,9 @@
             "width": "fill",
             "custom_width": 100,
             "inherit_color_scheme": true,
+            "color_scheme": "",
             "heading": "",
             "heading_preset": "h3",
-            "color_scheme": "",
             "border_style": "all",
             "border_width": 1,
             "border_radius": 100,
@@ -183,7 +143,7 @@
       "settings": {
         "section_width": "page-width",
         "gap": 20,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-4",
         "padding-block-start": 30,
         "padding-block-end": 30
       }
@@ -245,8 +205,6 @@
     }
   },
   "order": [
-    "footer_contact_bar_bds",
-    "footer_site_bds_main",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"
   ]
