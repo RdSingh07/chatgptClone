@@ -43,6 +43,12 @@ export class ZoomDialog extends Component {
    * @param {PointerEvent} event - The pointer event.
    */
   async open(index, event) {
+    const path = typeof event.composedPath === 'function' ? event.composedPath() : [];
+    const rawTarget = path[0];
+    if (rawTarget instanceof Element && rawTarget.closest('.product-media-360-badge')) {
+      return;
+    }
+
     event.preventDefault();
 
     const { dialog, media, thumbnails } = this.refs;
