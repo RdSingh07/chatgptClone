@@ -140,6 +140,10 @@
             </div>
           {%- endif -%}
 
+          {%- if block_settings.show_artwork_upload -%}
+            {% render 'product-artwork-upload', block: block %}
+          {%- endif -%}
+
           {%- if product.quantity_price_breaks_configured? and variant.quantity_price_breaks.size > 0 -%}
             {%- liquid
               assign use_currency = settings.currency_code_enabled_product_pages
@@ -405,6 +409,37 @@
     {
       "type": "paragraph",
       "content": "t:content.gift_card_form_description"
+    },
+    {
+      "type": "header",
+      "content": "Artwork upload"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_artwork_upload",
+      "label": "Show artwork upload (dashed button + modal)",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "artwork_trigger_text",
+      "label": "Upload button text",
+      "default": "CLICK HERE TO UPLOAD ARTWORK",
+      "visible_if": "{{ block.settings.show_artwork_upload }}"
+    },
+    {
+      "type": "text",
+      "id": "artwork_optional_label",
+      "label": "Optional label (orange)",
+      "default": "Optional",
+      "visible_if": "{{ block.settings.show_artwork_upload }}"
+    },
+    {
+      "type": "text",
+      "id": "artwork_modal_title",
+      "label": "Modal title",
+      "default": "UPLOAD YOUR ARTWORK",
+      "visible_if": "{{ block.settings.show_artwork_upload }}"
     },
     {
       "type": "header",

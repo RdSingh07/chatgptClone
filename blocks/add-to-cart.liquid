@@ -10,6 +10,9 @@
 
 {% liquid
   assign class = 'add-to-cart-button ' | append: block.settings.style_class
+  if block.settings.backdrop_green_button
+    assign class = class | append: ' add-cart-btn--backdrop-green'
+  endif
   assign id = 'BuyButtons-ProductSubmitButton-' | append: block.id
 %}
 
@@ -23,7 +26,8 @@
     can_add_to_cart: can_add_to_cart,
     product: closest.product,
     add_to_cart_text: add_to_cart_text,
-    data_testid: 'standalone-add-to-cart'
+    data_testid: 'standalone-add-to-cart',
+    show_payment_icons: block.settings.show_payment_icons
   %}
 </span>
 
@@ -47,6 +51,18 @@
         }
       ],
       "default": "button-secondary"
+    },
+    {
+      "type": "checkbox",
+      "id": "backdrop_green_button",
+      "label": "Backdrop-style green add to cart",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show card brand icons on button",
+      "default": false
     }
   ]
 }

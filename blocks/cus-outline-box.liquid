@@ -18,7 +18,7 @@
   {{ block.shopify_attributes }}
 >
   {% if s.heading != blank %}
-    <p class="header">{{ s.heading }}</p>
+    <p class="header" role="heading" aria-level="3">{{ s.heading }}</p>
   {% endif %}
 
   {% if s.subheading != blank %}
@@ -197,6 +197,12 @@
     },
     {
       "type": "@app"
+    },
+    {
+      "type": "variant-picker"
+    },
+    {
+      "type": "buy-buttons"
     }
   ],
   "settings": [
@@ -210,7 +216,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Intro text",
-      "default": "Select the frame size, printing side & frame structure options"
+      "default": "Select the frame size, printing sides & frame structures options"
     },
     {
       "type": "checkbox",

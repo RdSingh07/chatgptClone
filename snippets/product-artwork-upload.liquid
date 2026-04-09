@@ -1,0 +1,334 @@
+{%- doc -%}
+  Optional artwork upload UI (line item property). Must render inside the product cart form.
+  Sets properties[File Upload] from link text, email-later note, or optional direct file name display.
+{%- enddoc -%}
+{%- liquid
+  assign uid = block.id | replace: '_', '' | replace: '.', ''
+  assign dialog_id = 'bds-artwork-' | append: section.id | append: '-' | append: uid
+  assign trigger_text = block.settings.artwork_trigger_text | default: 'CLICK HERE TO UPLOAD ARTWORK'
+  assign optional_lbl = block.settings.artwork_optional_label | default: 'Optional'
+  assign modal_title = block.settings.artwork_modal_title | default: 'UPLOAD YOUR ARTWORK'
+  assign tab_direct = block.settings.artwork_tab_direct | default: 'Direct upload'
+  assign tab_link = block.settings.artwork_tab_link | default: 'Link upload'
+  assign tab_email = block.settings.artwork_tab_email | default: 'Email later'
+  assign direct_hint = block.settings.artwork_direct_hint | default: 'Choose a file (images, PDF, AI, EPS). For files over 500 MB, use Link and share WeTransfer, Dropbox, Google Drive, etc.'
+  assign link_lbl = block.settings.artwork_link_label | default: 'Paste your URL below'
+  assign email_txt = block.settings.artwork_email_later_text | default: 'Email your artwork or design ideas to the store later. We will send you a proof image.'
+  assign save_lbl = block.settings.artwork_save_label | default: 'Save'
+  assign accept_types = block.settings.artwork_file_accept | default: 'image/*,.pdf,.ai,.eps,.zip'
+-%}
+
+<div id="bds-artwork-root-{{ uid }}" class="bds-artwork-upload" {{ block.shopify_attributes }}>
+  <button
+    type="button"
+    class="bds-artwork-upload__trigger"
+    aria-haspopup="dialog"
+    aria-controls="{{ dialog_id }}"
+    data-bds-artwork-open="{{ dialog_id }}"
+  >
+    {{- trigger_text -}}
+    <span class="bds-artwork-upload__optional">({{ optional_lbl }})</span>
+  </button>
+  <input
+    type="hidden"
+    id="bds-file-upload-property-{{ uid }}"
+    name="properties[File Upload]"
+    value=""
+  >
+
+  <dialog id="{{ dialog_id }}" class="bds-artwork-upload__dialog" aria-labelledby="{{ dialog_id }}-title">
+    <div class="bds-artwork-upload__dialog-inner">
+      <header class="bds-artwork-upload__head">
+        <h2 id="{{ dialog_id }}-title" class="bds-artwork-upload__title">{{ modal_title }}</h2>
+        <button type="button" class="bds-artwork-upload__close" data-bds-artwork-close aria-label="{{ 'actions.close' | t }}">✕</button>
+      </header>
+      <div class="bds-artwork-upload__tabs" role="tablist">
+        <button type="button" class="bds-artwork-upload__tab is-active" data-bds-tab="direct" role="tab" aria-selected="true">{{ tab_direct }}</button>
+        <button type="button" class="bds-artwork-upload__tab" data-bds-tab="link" role="tab" aria-selected="false">{{ tab_link }}</button>
+        <button type="button" class="bds-artwork-upload__tab" data-bds-tab="email" role="tab" aria-selected="false">{{ tab_email }}</button>
+      </div>
+      <div class="bds-artwork-upload__panels">
+        <div class="bds-artwork-upload__panel is-active" data-bds-panel="direct" role="tabpanel">
+          <p class="bds-artwork-upload__hint">{{ direct_hint }}</p>
+          <input
+            type="file"
+            class="bds-artwork-upload__file"
+            data-bds-artwork-file
+            name="properties[Artwork file]"
+            accept="{{ accept_types }}"
+          >
+          <p class="bds-artwork-upload__file-note" data-bds-artwork-filename hidden></p>
+        </div>
+        <div class="bds-artwork-upload__panel" data-bds-panel="link" role="tabpanel" hidden>
+          <label class="bds-artwork-upload__label" for="bds-link-{{ uid }}">{{ link_lbl }}</label>
+          <input type="url" id="bds-link-{{ uid }}" class="bds-artwork-upload__input" data-bds-artwork-link placeholder="https://">
+        </div>
+        <div class="bds-artwork-upload__panel" data-bds-panel="email" role="tabpanel" hidden>
+          <label class="bds-artwork-upload__check">
+            <input type="checkbox" data-bds-artwork-email-later>
+            <span>{{ email_txt }}</span>
+          </label>
+        </div>
+      </div>
+      <p class="bds-artwork-upload__error" data-bds-artwork-error hidden></p>
+      <footer class="bds-artwork-upload__footer">
+        <button type="button" class="button button-secondary bds-artwork-upload__save" data-bds-artwork-save>{{ save_lbl }}</button>
+      </footer>
+    </div>
+  </dialog>
+</div>
+
+{% stylesheet %}
+  .bds-artwork-upload {
+    margin-bottom: 1rem;
+    clear: both;
+  }
+
+  .bds-artwork-upload__trigger {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0.85rem 1rem;
+    border: 2px dashed #adadad;
+    background: #f5f5f5;
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-align: center;
+    cursor: pointer;
+    font-family: inherit;
+    color: inherit;
+  }
+
+  .bds-artwork-upload__optional {
+    color: #ff935b;
+    padding-left: 0.35rem;
+    font-weight: 700;
+  }
+
+  .bds-artwork-upload__dialog {
+    max-width: min(520px, 100vw - 2rem);
+    width: 100%;
+    border: 1px solid #c8c8c8;
+    border-radius: 6px;
+    padding: 0;
+    box-shadow: 0 12px 40px rgb(0 0 0 / 0.18);
+  }
+
+  .bds-artwork-upload__dialog::backdrop {
+    background: rgb(0 0 0 / 0.45);
+  }
+
+  .bds-artwork-upload__dialog-inner {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .bds-artwork-upload__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .bds-artwork-upload__title {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .bds-artwork-upload__close {
+    border: none;
+    background: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.15rem;
+  }
+
+  .bds-artwork-upload__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .bds-artwork-upload__tab {
+    flex: 1 1 auto;
+    min-width: 5rem;
+    padding: 0.5rem 0.35rem;
+    border: 1px solid #d0d0d0;
+    background: #f0f0f0;
+    font-size: 0.8125rem;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .bds-artwork-upload__tab.is-active {
+    background: #fff;
+    border-color: #6d8eb1;
+    color: #6d8eb1;
+    font-weight: 600;
+  }
+
+  .bds-artwork-upload__panel {
+    margin-bottom: 1rem;
+  }
+
+  .bds-artwork-upload__panel[hidden] {
+    display: none !important;
+  }
+
+  .bds-artwork-upload__hint,
+  .bds-artwork-upload__label {
+    font-size: 0.8125rem;
+    margin: 0 0 0.5rem;
+    display: block;
+  }
+
+  .bds-artwork-upload__file {
+    width: 100%;
+    font-size: 0.875rem;
+  }
+
+  .bds-artwork-upload__input {
+    width: 100%;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--color-border, #ccc);
+    border-radius: var(--style-border-radius-inputs, 4px);
+  }
+
+  .bds-artwork-upload__check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  .bds-artwork-upload__error {
+    color: #b00020;
+    font-size: 0.8125rem;
+    margin: 0 0 0.5rem;
+  }
+
+  .bds-artwork-upload__footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .bds-artwork-upload__file-note {
+    font-size: 0.8125rem;
+    margin: 0.5rem 0 0;
+    color: #2e7d32;
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var root = document.getElementById('bds-artwork-root-{{ uid }}');
+    if (!root) return;
+    var dialogId = root.querySelector('[data-bds-artwork-open]')?.getAttribute('data-bds-artwork-open');
+    var dialog = dialogId ? document.getElementById(dialogId) : root.querySelector('dialog');
+    var hidden = root.querySelector('[name="properties[File Upload]"]');
+    var openBtn = root.querySelector('[data-bds-artwork-open]');
+    var closeBtn = root.querySelector('[data-bds-artwork-close]');
+    var tabs = root.querySelectorAll('.bds-artwork-upload__tab');
+    var panels = root.querySelectorAll('.bds-artwork-upload__panel');
+    var fileInput = root.querySelector('[data-bds-artwork-file]');
+    var linkInput = root.querySelector('[data-bds-artwork-link]');
+    var emailChk = root.querySelector('[data-bds-artwork-email-later]');
+    var saveBtn = root.querySelector('[data-bds-artwork-save]');
+    var errEl = root.querySelector('[data-bds-artwork-error]');
+    var nameEl = root.querySelector('[data-bds-artwork-filename]');
+
+    function showErr(msg) {
+      if (!errEl) return;
+      errEl.textContent = msg || '';
+      errEl.hidden = !msg;
+    }
+
+    function setTab(name) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-bds-tab') === name;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      panels.forEach(function (p) {
+        var on = p.getAttribute('data-bds-panel') === name;
+        p.toggleAttribute('hidden', !on);
+        p.classList.toggle('is-active', on);
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        setTab(tab.getAttribute('data-bds-tab'));
+        showErr('');
+      });
+    });
+
+    if (openBtn && dialog && typeof dialog.showModal === 'function') {
+      openBtn.addEventListener('click', function () {
+        showErr('');
+        dialog.showModal();
+      });
+    }
+    if (closeBtn && dialog) {
+      closeBtn.addEventListener('click', function () {
+        dialog.close();
+      });
+    }
+    if (dialog) {
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog) dialog.close();
+      });
+    }
+
+    if (fileInput && nameEl) {
+      fileInput.addEventListener('change', function () {
+        var f = fileInput.files && fileInput.files[0];
+        if (f) {
+          nameEl.textContent = 'Selected: ' + f.name;
+          nameEl.hidden = false;
+        } else {
+          nameEl.hidden = true;
+        }
+      });
+    }
+
+    if (saveBtn && hidden) {
+      saveBtn.addEventListener('click', function () {
+        showErr('');
+        var active = root.querySelector('.bds-artwork-upload__tab.is-active');
+        var mode = active ? active.getAttribute('data-bds-tab') : 'direct';
+        if (mode === 'direct') {
+          if (linkInput) linkInput.value = '';
+          if (emailChk) emailChk.checked = false;
+          if (fileInput && fileInput.files && fileInput.files[0]) {
+            hidden.value = 'File attached: ' + fileInput.files[0].name;
+          } else {
+            hidden.value = '';
+          }
+        } else if (mode === 'link') {
+          if (fileInput) fileInput.value = '';
+          if (emailChk) emailChk.checked = false;
+          var u = (linkInput && linkInput.value) ? linkInput.value.trim() : '';
+          if (!u) {
+            showErr('Please paste a URL or pick another option.');
+            return;
+          }
+          hidden.value = 'Link: ' + u;
+        } else if (mode === 'email') {
+          if (fileInput) fileInput.value = '';
+          if (linkInput) linkInput.value = '';
+          if (emailChk && emailChk.checked) {
+            hidden.value = 'Customer will email artwork later';
+          } else {
+            showErr('Please confirm email later or choose another tab.');
+            return;
+          }
+        }
+        if (dialog) dialog.close();
+      });
+    }
+  })();
+</script>
