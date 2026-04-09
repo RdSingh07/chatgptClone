@@ -66,7 +66,9 @@
               "blocks": {}
             }
           },
-          "block_order": ["product_highlights_media_col"]
+          "block_order": [
+            "product_highlights_media_col"
+          ]
         },
         "product-details": {
           "type": "_product-details",
@@ -204,7 +206,6 @@
             },
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
-              "name": "Variant picker",
               "settings": {
                 "variant_style": "dropdowns",
                 "show_swatches": false,
@@ -213,7 +214,7 @@
                 "outline_heading": "Step 1:",
                 "outline_subheading": "Select the frame size, printing sides & frame structures options",
                 "outline_hide_mobile": false,
-                "outline_border": "neutral",
+                "outline_border": "accent",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -223,22 +224,21 @@
             },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
-              "name": "Buy buttons",
               "settings": {
                 "stacking": true,
-                "show_pickup_availability": false,
-                "gift_card_form": false,
-                "outline_step_box": true,
-                "outline_heading": "Step 2:",
-                "outline_subheading": "Upload your designs now or you can upload later",
-                "outline_hide_mobile": false,
-                "outline_border": "neutral",
-                "show_quantity_row_label": true,
-                "quantity_row_label": "Quantity",
+                "show_pickup_availability": true,
+                "gift_card_form": true,
                 "show_artwork_upload": true,
                 "artwork_trigger_text": "CLICK HERE TO UPLOAD ARTWORK",
                 "artwork_optional_label": "Optional",
                 "artwork_modal_title": "UPLOAD YOUR ARTWORK",
+                "outline_step_box": true,
+                "outline_heading": "Step 2:",
+                "outline_subheading": "Upload your designs now or you can upload later",
+                "outline_hide_mobile": true,
+                "outline_border": "accent",
+                "show_quantity_row_label": false,
+                "quantity_row_label": "Quantity",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -256,8 +256,8 @@
                   "static": true,
                   "settings": {
                     "style_class": "button",
-                    "backdrop_green_button": true,
-                    "show_payment_icons": true
+                    "backdrop_green_button": false,
+                    "show_payment_icons": false
                   },
                   "blocks": {}
                 },
@@ -270,38 +270,20 @@
               },
               "block_order": []
             },
-            "cta_free_2d_bds": {
-              "type": "product-outline-cta",
-              "name": "Free 2D mockup",
-              "settings": {
-                "heading": "Get Free 2D Mockup",
-                "hide_on_mobile": true,
-                "button_label": "Get Free 2D Design Preview",
-                "icon_style": "image",
-                "open_mode": "dialog",
-                "link_url": "",
-                "open_new_tab": false,
-                "modal_heading": "Free 2D design preview",
-                "modal_body": "<p>Share your logo, artwork, or design ideas and your preferred size. Our team can email a free 2D mockup before printing.</p>",
-                "support_email": "support@backdropsource.in",
-                "email_button_label": "Email us"
-              },
-              "blocks": {}
-            },
             "product_outline_bds": {
               "type": "product-outline-links",
-              "name": "Template & setup",
+              "name": "Template & quote links",
               "settings": {
                 "show_box_1": true,
                 "box_1_hide_mobile": false,
-                "box_1_border": "neutral",
+                "box_1_border": "accent",
                 "box_1_header": "Graphics Templates & Setup Guide",
                 "box_1_label": "Design Template & Assembly Guide",
                 "box_1_url": "https://mega.nz/folder/BZVEWB5R#hIFE7nFQ4p0kO3BwpjrxZg",
                 "box_1_new_tab": true,
                 "show_box_2": false,
                 "box_2_hide_mobile": false,
-                "box_2_border": "neutral",
+                "box_2_border": "accent",
                 "box_2_header": "Get a Custom Size Quote",
                 "box_2_label": "Get a Custom Size Quote",
                 "box_2_url": "",
@@ -310,24 +292,6 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "cta_custom_quote_bds": {
-              "type": "product-outline-cta",
-              "name": "Custom size quote",
-              "settings": {
-                "heading": "Get a Custom Size Quote",
-                "hide_on_mobile": false,
-                "button_label": "Get a Custom Size Quote",
-                "icon_style": "file",
-                "open_mode": "dialog",
-                "link_url": "",
-                "open_new_tab": false,
-                "modal_heading": "Custom size quote",
-                "modal_body": "<p>Tell us the width and height you need. We will reply with pricing and lead time for a custom tension fabric backdrop.</p>",
-                "support_email": "support@backdropsource.in",
-                "email_button_label": "Request quote by email"
               },
               "blocks": {}
             },
@@ -382,9 +346,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "cta_free_2d_bds",
             "product_outline_bds",
-            "cta_custom_quote_bds",
             "product_order_steps_bds",
             "product_spec_bds"
           ]
