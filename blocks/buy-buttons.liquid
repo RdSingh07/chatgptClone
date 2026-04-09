@@ -33,8 +33,26 @@
       assign add_to_cart_text = 'products.product.unavailable' | t
     endif
   endif
+
+  assign ob_class = 'cus-outline-box'
+  if block_settings.outline_step_box and block_settings.outline_hide_mobile
+    assign ob_class = ob_class | append: ' hide-mobile'
+  endif
+  if block_settings.outline_step_box and block_settings.outline_border == 'accent'
+    assign ob_class = ob_class | append: ' cus-outline-box--accent-border'
+  endif
 %}
 
+{% if block_settings.outline_step_box %}
+  <div class="{{ ob_class }}">
+    {% if block_settings.outline_heading != blank %}
+      <p class="header" role="heading" aria-level="3">{{ block_settings.outline_heading }}</p>
+    {% endif %}
+    {% if block_settings.outline_subheading != blank %}
+      <p class="cus-outline-box__subheading">{{ block_settings.outline_subheading }}</p>
+    {% endif %}
+    <div class="cus-outline-box__content">
+{% endif %}
 <span
   class="buy-buttons-block buy-buttons-block--{{ block.id }}"
   {{ block.shopify_attributes }}
@@ -262,6 +280,10 @@
     </div>
   {%- endif -%}
 </span>
+{% if block_settings.outline_step_box %}
+    </div>
+  </div>
+{% endif %}
 
 {% if block_settings.show_pickup_availability %}
   <script
@@ -440,6 +462,52 @@
       "label": "Modal title",
       "default": "UPLOAD YOUR ARTWORK",
       "visible_if": "{{ block.settings.show_artwork_upload }}"
+    },
+    {
+      "type": "header",
+      "content": "Dashed outline (Step 2)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Wraps quantity, artwork upload, and checkout buttons — no nested Outline block needed."
+    },
+    {
+      "type": "checkbox",
+      "id": "outline_step_box",
+      "label": "Wrap buy buttons in dashed outline box",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "outline_heading",
+      "label": "Box heading",
+      "default": "Step 2:",
+      "visible_if": "{{ block.settings.outline_step_box }}"
+    },
+    {
+      "type": "textarea",
+      "id": "outline_subheading",
+      "label": "Intro text under heading",
+      "default": "Upload your designs now or you can upload later",
+      "visible_if": "{{ block.settings.outline_step_box }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "outline_hide_mobile",
+      "label": "Hide outline box on mobile",
+      "default": false,
+      "visible_if": "{{ block.settings.outline_step_box }}"
+    },
+    {
+      "type": "select",
+      "id": "outline_border",
+      "label": "Border style",
+      "options": [
+        { "value": "neutral", "label": "Gray dashed" },
+        { "value": "accent", "label": "Red dashed" }
+      ],
+      "default": "neutral",
+      "visible_if": "{{ block.settings.outline_step_box }}"
     },
     {
       "type": "header",

@@ -1,14 +1,40 @@
 
-
-{% liquid
+{%- liquid
   assign product_resource = closest.product
   if request.visual_preview_mode and product_resource == blank
     assign product_resource = collections.all.products.first
   endif
+  assign vps = block.settings
+  assign outline_class = 'cus-outline-box'
+  if vps.outline_step_box and vps.outline_hide_mobile
+    assign outline_class = outline_class | append: ' hide-mobile'
+  endif
+  if vps.outline_step_box and vps.outline_border == 'accent'
+    assign outline_class = outline_class | append: ' cus-outline-box--accent-border'
+  endif
 -%}
 
 {% unless product_resource == blank %}
-  {% render 'variant-main-picker', product_resource: product_resource, section: section, product: product %}
+  {% if vps.outline_step_box %}
+    <div class="{{ outline_class }}">
+      {% if vps.outline_heading != blank %}
+        <p class="header" role="heading" aria-level="3">{{ vps.outline_heading }}</p>
+      {% endif %}
+      {% if vps.outline_subheading != blank %}
+        <p class="cus-outline-box__subheading">{{ vps.outline_subheading }}</p>
+      {% endif %}
+      <div class="cus-outline-box__content">
+  {% endif %}
+  {% render 'variant-main-picker',
+    product_resource: product_resource,
+    section: section,
+    product: product,
+    block: block
+  %}
+  {% if vps.outline_step_box %}
+      </div>
+    </div>
+  {% endif %}
 {% endunless %}
 
 {% schema %}
@@ -51,6 +77,52 @@
       "id": "alignment",
       "label": "t:settings.alignment",
       "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Dashed outline (Step 1)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Use this instead of nesting an Outline box block — works even when the theme editor does not save nested blocks."
+    },
+    {
+      "type": "checkbox",
+      "id": "outline_step_box",
+      "label": "Wrap picker in dashed outline box",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "outline_heading",
+      "label": "Box heading",
+      "default": "Step 1:",
+      "visible_if": "{{ block.settings.outline_step_box }}"
+    },
+    {
+      "type": "textarea",
+      "id": "outline_subheading",
+      "label": "Intro text under heading",
+      "default": "Select the frame size, printing sides & frame structures options",
+      "visible_if": "{{ block.settings.outline_step_box }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "outline_hide_mobile",
+      "label": "Hide outline box on mobile",
+      "default": false,
+      "visible_if": "{{ block.settings.outline_step_box }}"
+    },
+    {
+      "type": "select",
+      "id": "outline_border",
+      "label": "Border style",
+      "options": [
+        { "value": "neutral", "label": "Gray dashed" },
+        { "value": "accent", "label": "Red dashed" }
+      ],
+      "default": "neutral",
+      "visible_if": "{{ block.settings.outline_step_box }}"
     },
     {
       "type": "header",

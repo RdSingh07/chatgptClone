@@ -202,87 +202,73 @@
               },
               "blocks": {}
             },
-            "cus_outline_step1_bds": {
-              "type": "cus-outline-box",
-              "name": "Step 1",
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "name": "Variant picker",
               "settings": {
-                "heading": "Step 1:",
-                "subheading": "Select the frame size, printing sides & frame structures options",
-                "hide_mobile": false,
-                "border_style": "neutral"
+                "variant_style": "dropdowns",
+                "show_swatches": false,
+                "alignment": "left",
+                "outline_step_box": true,
+                "outline_heading": "Step 1:",
+                "outline_subheading": "Select the frame size, printing sides & frame structures options",
+                "outline_hide_mobile": false,
+                "outline_border": "neutral",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "name": "Buy buttons",
+              "settings": {
+                "stacking": true,
+                "show_pickup_availability": false,
+                "gift_card_form": false,
+                "outline_step_box": true,
+                "outline_heading": "Step 2:",
+                "outline_subheading": "Upload your designs now or you can upload later",
+                "outline_hide_mobile": false,
+                "outline_border": "neutral",
+                "show_quantity_row_label": true,
+                "quantity_row_label": "Quantity",
+                "show_artwork_upload": true,
+                "artwork_trigger_text": "CLICK HERE TO UPLOAD ARTWORK",
+                "artwork_optional_label": "Optional",
+                "artwork_modal_title": "UPLOAD YOUR ARTWORK",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {
-                "variant_picker_step1": {
-                  "type": "variant-picker",
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
                   "settings": {
-                    "variant_style": "dropdowns",
-                    "show_swatches": false,
-                    "alignment": "left",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "style_class": "button",
+                    "backdrop_green_button": true,
+                    "show_payment_icons": true
                   },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
                   "blocks": {}
                 }
               },
-              "block_order": ["variant_picker_step1"]
-            },
-            "cus_outline_step2_bds": {
-              "type": "cus-outline-box",
-              "name": "Step 2",
-              "settings": {
-                "heading": "Step 2:",
-                "subheading": "Upload your designs now or you can upload later",
-                "hide_mobile": false,
-                "border_style": "neutral"
-              },
-              "blocks": {
-                "buy_buttons_step2": {
-                  "type": "buy-buttons",
-                  "settings": {
-                    "stacking": true,
-                    "show_pickup_availability": false,
-                    "gift_card_form": false,
-                    "show_quantity_row_label": true,
-                    "quantity_row_label": "Quantity",
-                    "show_artwork_upload": true,
-                    "artwork_trigger_text": "CLICK HERE TO UPLOAD ARTWORK",
-                    "artwork_optional_label": "Optional",
-                    "artwork_modal_title": "UPLOAD YOUR ARTWORK",
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {
-                    "quantity": {
-                      "type": "quantity",
-                      "static": true,
-                      "settings": {},
-                      "blocks": {}
-                    },
-                    "add-to-cart": {
-                      "type": "add-to-cart",
-                      "static": true,
-                      "settings": {
-                        "style_class": "button",
-                        "backdrop_green_button": true,
-                        "show_payment_icons": true
-                      },
-                      "blocks": {}
-                    },
-                    "accelerated-checkout": {
-                      "type": "accelerated-checkout",
-                      "static": true,
-                      "settings": {},
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": []
-                }
-              },
-              "block_order": ["buy_buttons_step2"]
+              "block_order": []
             },
             "cta_free_2d_bds": {
               "type": "product-outline-cta",
@@ -394,8 +380,8 @@
             "product_meta_bds",
             "product_delivery_bds",
             "divider_VJhene",
-            "cus_outline_step1_bds",
-            "cus_outline_step2_bds",
+            "variant_picker_R3rGDr",
+            "buy_buttons_eYQEYi",
             "cta_free_2d_bds",
             "product_outline_bds",
             "cta_custom_quote_bds",
