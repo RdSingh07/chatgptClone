@@ -270,6 +270,26 @@
               },
               "block_order": []
             },
+            "cta_free_2d_bds": {
+              "type": "product-outline-cta",
+              "name": "Free 2D mockup",
+              "settings": {
+                "heading": "Get Free 2D Mockup",
+                "hide_on_mobile": true,
+                "button_label": "Get Free 2D Design Preview",
+                "icon_style": "image",
+                "open_mode": "dialog",
+                "modal_template": "backdrop_request",
+                "request_form_type": "mockup",
+                "link_url": "",
+                "open_new_tab": false,
+                "modal_heading": "REQUEST 2D MOCKUP IMAGE",
+                "modal_body": "<p>Share your logo, artwork, or design ideas and your preferred size.</p>",
+                "support_email": "support@backdropsource.in",
+                "email_button_label": "Email us"
+              },
+              "blocks": {}
+            },
             "product_outline_bds": {
               "type": "product-outline-links",
               "name": "Template & quote links",
@@ -292,6 +312,26 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "cta_custom_quote_bds": {
+              "type": "product-outline-cta",
+              "name": "Custom size quote",
+              "settings": {
+                "heading": "Get a Custom Size Quote",
+                "hide_on_mobile": false,
+                "button_label": "Get a Custom Size Quote",
+                "icon_style": "file",
+                "open_mode": "dialog",
+                "modal_template": "backdrop_request",
+                "request_form_type": "quote",
+                "link_url": "",
+                "open_new_tab": false,
+                "modal_heading": "CUSTOMIZED SIZE REQUEST",
+                "modal_body": "<p>Tell us the width and height you need.</p>",
+                "support_email": "support@backdropsource.in",
+                "email_button_label": "Request quote by email"
               },
               "blocks": {}
             },
@@ -346,7 +386,9 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "cta_free_2d_bds",
             "product_outline_bds",
+            "cta_custom_quote_bds",
             "product_order_steps_bds",
             "product_spec_bds"
           ]

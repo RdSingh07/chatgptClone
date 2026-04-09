@@ -51,21 +51,42 @@
         <span class="product-outline-cta__label">{{ bs.button_label }}</span>
       </button>
 
-      <dialog id="{{ dlg }}" class="product-outline-cta__dialog" aria-labelledby="{{ dlg }}-title">
-        <div class="product-outline-cta__dialog-inner">
-          <header class="product-outline-cta__dialog-head">
-            <h2 id="{{ dlg }}-title" class="product-outline-cta__dialog-title">
-              {{ bs.modal_heading | default: bs.heading }}
-            </h2>
-            <button type="button" class="product-outline-cta__dialog-x" data-bds-cta-close aria-label="{{ 'actions.close' | t }}">✕</button>
-          </header>
-          <div class="product-outline-cta__dialog-body rte">{{ bs.modal_body }}</div>
-          {% if bs.support_email != blank %}
-            <p class="product-outline-cta__dialog-actions">
-              <a class="button" href="mailto:{{ bs.support_email | escape }}">{{ bs.email_button_label | default: 'Email us' }}</a>
-            </p>
-          {% endif %}
-        </div>
+      {%- liquid
+        assign use_backdrop_modal = true
+        if bs.modal_template == 'simple'
+          assign use_backdrop_modal = false
+        endif
+      -%}
+      <dialog
+        id="{{ dlg }}"
+        class="product-outline-cta__dialog{% if use_backdrop_modal %} product-outline-cta__dialog--wide{% endif %}"
+        aria-labelledby="{{ dlg }}-title"
+      >
+        {% if use_backdrop_modal %}
+          {%- assign bds_form_id = 'BdsReqForm-' | append: section.id | append: '-' | append: uid -%}
+          {% render 'backdrop-bds-request-modal',
+            dlg: dlg,
+            form_id: bds_form_id,
+            modal_title: bs.modal_heading,
+            request_kind: bs.request_form_type | default: 'mockup',
+            product: closest.product
+          %}
+        {% else %}
+          <div class="product-outline-cta__dialog-inner">
+            <header class="product-outline-cta__dialog-head">
+              <h2 id="{{ dlg }}-title" class="product-outline-cta__dialog-title">
+                {{ bs.modal_heading | default: bs.heading }}
+              </h2>
+              <button type="button" class="product-outline-cta__dialog-x" data-bds-cta-close aria-label="{{ 'actions.close' | t }}">✕</button>
+            </header>
+            <div class="product-outline-cta__dialog-body rte">{{ bs.modal_body }}</div>
+            {% if bs.support_email != blank %}
+              <p class="product-outline-cta__dialog-actions">
+                <a class="button" href="mailto:{{ bs.support_email | escape }}">{{ bs.email_button_label | default: 'Email us' }}</a>
+              </p>
+            {% endif %}
+          </div>
+        {% endif %}
       </dialog>
 
       <script>
@@ -136,9 +157,15 @@
     max-width: min(520px, 100vw - 2rem);
     width: 100%;
     border: 1px solid #c8c8c8;
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 0;
     box-shadow: 0 12px 40px rgb(0 0 0 / 0.18);
+  }
+
+  .product-outline-cta__dialog--wide {
+    max-width: min(920px, 100vw - 1.25rem);
+    width: 100%;
+    border-radius: 10px;
   }
 
   .product-outline-cta__dialog::backdrop {
@@ -231,6 +258,29 @@
       "default": "dialog"
     },
     {
+      "type": "select",
+      "id": "modal_template",
+      "label": "Modal layout",
+      "options": [
+        { "value": "backdrop_request", "label": "Backdrop request (sidebar + form)" },
+        { "value": "simple", "label": "Simple (text + email link)" }
+      ],
+      "default": "backdrop_request",
+      "visible_if": "{{ block.settings.open_mode == 'dialog' }}"
+    },
+    {
+      "type": "select",
+      "id": "request_form_type",
+      "label": "Request form type",
+      "info": "2D mockup includes design upload tabs. Custom quote is dimensions + message only.",
+      "options": [
+        { "value": "mockup", "label": "2D mockup (upload section)" },
+        { "value": "quote", "label": "Custom size quote" }
+      ],
+      "default": "mockup",
+      "visible_if": "{{ block.settings.open_mode == 'dialog' and block.settings.modal_template == 'backdrop_request' }}"
+    },
+    {
       "type": "url",
       "id": "link_url",
       "label": "Link URL",
@@ -247,29 +297,29 @@
       "type": "text",
       "id": "modal_heading",
       "label": "Modal title",
-      "default": "Free 2D design preview",
+      "default": "REQUEST 2D MOCKUP IMAGE",
       "visible_if": "{{ block.settings.open_mode == 'dialog' }}"
     },
     {
       "type": "richtext",
       "id": "modal_body",
-      "label": "Modal content",
+      "label": "Modal content (simple layout only)",
       "default": "<p>Share your logo and size details. Our team will email a free 2D mockup before printing.</p>",
-      "visible_if": "{{ block.settings.open_mode == 'dialog' }}"
+      "visible_if": "{{ block.settings.open_mode == 'dialog' and block.settings.modal_template == 'simple' }}"
     },
     {
       "type": "text",
       "id": "support_email",
-      "label": "Support email (mailto button)",
+      "label": "Support email (simple layout only)",
       "default": "support@backdropsource.in",
-      "visible_if": "{{ block.settings.open_mode == 'dialog' }}"
+      "visible_if": "{{ block.settings.open_mode == 'dialog' and block.settings.modal_template == 'simple' }}"
     },
     {
       "type": "text",
       "id": "email_button_label",
-      "label": "Email button label",
+      "label": "Email button label (simple layout only)",
       "default": "Email us",
-      "visible_if": "{{ block.settings.open_mode == 'dialog' }}"
+      "visible_if": "{{ block.settings.open_mode == 'dialog' and block.settings.modal_template == 'simple' }}"
     }
   ],
   "presets": [

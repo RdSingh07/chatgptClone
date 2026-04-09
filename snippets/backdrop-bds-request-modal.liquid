@@ -1,0 +1,550 @@
+{%- doc -%}
+  Backdrop-style split modal: trust sidebar + contact form.
+  @param {string} dlg - dialog element id
+  @param {string} form_id - unique contact form id (contact[id])
+  @param {string} modal_title - header title (uppercase in CSS)
+  @param {string} request_kind - 'mockup' | 'quote'
+  @param {object} [product] - product for context line in message body
+{%- enddoc -%}
+{%- liquid
+  assign kind = request_kind | default: 'quote'
+  assign pid = form_id | handleize
+  assign product_ctx = ''
+  if product
+    assign product_ctx = product.title | append: ' | ' | append: request.origin | append: product.url
+  endif
+-%}
+
+<div class="bds-req-modal__shell">
+  <header class="bds-req-modal__top">
+    <h2 id="{{ dlg }}-title" class="bds-req-modal__title">{{ modal_title | escape }}</h2>
+    <button type="button" class="bds-req-modal__x" data-bds-cta-close aria-label="{{ 'actions.close' | t }}">✕</button>
+  </header>
+
+  <div class="bds-req-modal__grid">
+    <aside class="bds-req-modal__sidebar" aria-label="Trust and ordering information">
+      <div class="bds-req-modal__badge" aria-hidden="true">21 YEARS</div>
+      <ul class="bds-req-modal__features">
+        <li><strong>Free Shipping</strong><span>On all orders</span></li>
+        <li><strong>1-Year Warranty</strong><span>Product guarantee</span></li>
+        <li><strong>Best Price Guarantee</strong><span>Competitive pricing</span></li>
+        <li><strong>Eco-Friendly Materials</strong><span>PVC-free fabric</span></li>
+      </ul>
+      <div class="bds-req-modal__howto">
+        <p class="bds-req-modal__howto-title">How to Order</p>
+        {% if kind == 'mockup' %}
+          <ol class="bds-req-modal__howto-list">
+            <li>Submit your 2D mockup request</li>
+            <li>Receive quote and approve artwork</li>
+            <li>We print and ship to your door</li>
+          </ol>
+        {% else %}
+          <ol class="bds-req-modal__howto-list">
+            <li>Submit your custom size request</li>
+            <li>Receive quote and approve artwork</li>
+            <li>We print and ship to your door</li>
+          </ol>
+        {% endif %}
+      </div>
+      <p class="bds-req-modal__sidebar-foot">Need help? Share your size + design and we’ll guide you.</p>
+    </aside>
+
+    <div class="bds-req-modal__main">
+      {%- form 'contact', id: form_id, class: 'bds-req-modal__form' -%}
+        <input type="hidden" name="contact[id]" value="{{ form_id }}">
+        <textarea name="contact[body]" id="bds-body-{{ pid }}" class="bds-req-modal__body-hidden" rows="1" cols="1" aria-hidden="true"></textarea>
+
+        {%- if form.errors and form.id == form_id -%}
+          <div class="bds-req-modal__alert bds-req-modal__alert--error" tabindex="-1">
+            <strong>{{ 'blocks.contact_form.error_heading' | t }}</strong>
+            <ul class="bds-req-modal__errlist">
+              {% for field in form.errors %}
+                <li>
+                  {% if form.errors.translated_fields[field] != blank %}
+                    {{ form.errors.translated_fields[field] | capitalize }} —
+                  {% endif %}
+                  {{ form.errors.messages[field] }}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        {%- endif -%}
+        {%- if form.posted_successfully? and form.id == form_id -%}
+          <div class="bds-req-modal__alert bds-req-modal__alert--ok" tabindex="-1">
+            {{ 'blocks.contact_form.post_success' | t }}
+          </div>
+        {%- endif -%}
+
+        <div class="bds-req-modal__field">
+          <label class="bds-req-modal__label" for="bds-name-{{ pid }}">Name</label>
+          <input
+            class="bds-req-modal__input"
+            id="bds-name-{{ pid }}"
+            type="text"
+            name="contact[name]"
+            autocomplete="name"
+            required
+            value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+            placeholder="Name"
+          >
+        </div>
+        <div class="bds-req-modal__field">
+          <label class="bds-req-modal__label" for="bds-email-{{ pid }}">Email</label>
+          <input
+            class="bds-req-modal__input"
+            id="bds-email-{{ pid }}"
+            type="email"
+            name="contact[email]"
+            autocomplete="email"
+            required
+            value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+            placeholder="Email"
+          >
+        </div>
+        <div class="bds-req-modal__field">
+          <label class="bds-req-modal__label" for="bds-phone-{{ pid }}">Phone Number</label>
+          <input
+            class="bds-req-modal__input"
+            id="bds-phone-{{ pid }}"
+            type="tel"
+            name="contact[phone]"
+            autocomplete="tel"
+            value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+            placeholder="Phone"
+          >
+        </div>
+
+        <div class="bds-req-modal__dims">
+          <div class="bds-req-modal__field bds-req-modal__field--dim">
+            <label class="bds-req-modal__label" for="bds-w-{{ pid }}">Width</label>
+            <input class="bds-req-modal__input" id="bds-w-{{ pid }}" type="text" data-bds-dim="w" placeholder="Width" autocomplete="off">
+          </div>
+          <div class="bds-req-modal__field bds-req-modal__field--dim">
+            <label class="bds-req-modal__label" for="bds-h-{{ pid }}">Height</label>
+            <input class="bds-req-modal__input" id="bds-h-{{ pid }}" type="text" data-bds-dim="h" placeholder="Height" autocomplete="off">
+          </div>
+          <div class="bds-req-modal__field bds-req-modal__field--dim">
+            <label class="bds-req-modal__label" for="bds-u-{{ pid }}">Unit</label>
+            <input class="bds-req-modal__input" id="bds-u-{{ pid }}" type="text" data-bds-dim="u" value="m" placeholder="m" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="bds-req-modal__field">
+          <label class="bds-req-modal__label" for="bds-msg-{{ pid }}">Message</label>
+          <textarea
+            class="bds-req-modal__textarea"
+            id="bds-msg-{{ pid }}"
+            rows="4"
+            data-bds-msg
+            placeholder="Describe your request short"
+          ></textarea>
+        </div>
+
+        {% if kind == 'mockup' %}
+          <div class="bds-req-modal__upload" data-bds-upload-wrap>
+            <p class="bds-req-modal__label">Upload Your Design</p>
+            <div class="bds-req-modal__upload-tabs" role="tablist">
+              <button type="button" class="bds-req-modal__utab is-on" data-bds-utab="direct" role="tab">Direct Upload</button>
+              <button type="button" class="bds-req-modal__utab" data-bds-utab="link" role="tab">Link Upload</button>
+              <button type="button" class="bds-req-modal__utab" data-bds-utab="email" role="tab">Email Later</button>
+            </div>
+            <div class="bds-req-modal__upanel is-on" data-bds-upanel="direct">
+              <input type="file" class="bds-req-modal__file visually-hidden" id="bds-file-{{ pid }}" data-bds-file accept="image/*,.pdf,.ai,.psd,.eps,.zip" tabindex="-1">
+              <label for="bds-file-{{ pid }}" class="bds-req-modal__file-btn">Upload a File</label>
+              <p class="bds-req-modal__file-name" data-bds-filename hidden></p>
+              <p class="bds-req-modal__hint">Use this for JPG/PNG/PDF/AI/PSD. If your file is very large, use Link Upload.</p>
+            </div>
+            <div class="bds-req-modal__upanel" data-bds-upanel="link" hidden>
+              <input type="url" class="bds-req-modal__input" data-bds-link placeholder="https://">
+              <p class="bds-req-modal__hint">Paste WeTransfer, Drive, or Dropbox link.</p>
+            </div>
+            <div class="bds-req-modal__upanel" data-bds-upanel="email" hidden>
+              <label class="bds-req-modal__check">
+                <input type="checkbox" data-bds-email-later>
+                <span>I will email my design later</span>
+              </label>
+            </div>
+          </div>
+        {% endif %}
+
+        <button type="submit" class="bds-req-modal__send">SEND</button>
+      {%- endform -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var form = document.getElementById({{ form_id | json }});
+    if (!form) return;
+    var pid = {{ pid | json }};
+    var bodyEl = document.getElementById('bds-body-' + pid);
+    var msgEl = form.querySelector('[data-bds-msg]');
+    var kind = {{ kind | json }};
+    var productLine = {{ product_ctx | json }};
+
+    form.addEventListener('submit', function (e) {
+      if (!bodyEl) return;
+      var w = form.querySelector('[data-bds-dim="w"]');
+      var h = form.querySelector('[data-bds-dim="h"]');
+      var u = form.querySelector('[data-bds-dim="u"]');
+      var lines = [];
+      lines.push(kind === 'mockup' ? '=== REQUEST 2D MOCKUP IMAGE ===' : '=== CUSTOMIZED SIZE REQUEST ===');
+      if (productLine) lines.push('Product: ' + productLine);
+      lines.push('Dimensions: ' + (w && w.value ? w.value : '-') + ' x ' + (h && h.value ? h.value : '-') + ' ' + (u && u.value ? u.value : 'm'));
+      lines.push('');
+      lines.push(msgEl && msgEl.value ? msgEl.value.trim() : '(no message)');
+
+      if (kind === 'mockup') {
+        var wrap = form.querySelector('[data-bds-upload-wrap]');
+        if (wrap) {
+          var tab = wrap.querySelector('.bds-req-modal__utab.is-on');
+          var mode = tab ? tab.getAttribute('data-bds-utab') : 'direct';
+          if (mode === 'direct') {
+            var fi = wrap.querySelector('[data-bds-file]');
+            if (fi && fi.files && fi.files[0]) lines.push('\nDesign file (name only): ' + fi.files[0].name);
+            else lines.push('\nDesign: (no file selected — please describe or use Link/Email)');
+          } else if (mode === 'link') {
+            var li = wrap.querySelector('[data-bds-link]');
+            lines.push('\nDesign link: ' + (li && li.value ? li.value : '(none)'));
+          } else {
+            var ck = wrap.querySelector('[data-bds-email-later]');
+            lines.push('\nDesign: Customer will email artwork later — ' + (ck && ck.checked ? 'confirmed' : 'not confirmed'));
+          }
+        }
+      }
+
+      bodyEl.value = lines.join('\n');
+    });
+
+    var wrap = form.querySelector('[data-bds-upload-wrap]');
+    if (wrap) {
+      var fi = wrap.querySelector('[data-bds-file]');
+      var fn = wrap.querySelector('[data-bds-filename]');
+      if (fi && fn) {
+        fi.addEventListener('change', function () {
+          if (fi.files && fi.files[0]) {
+            fn.textContent = fi.files[0].name;
+            fn.hidden = false;
+          } else {
+            fn.hidden = true;
+          }
+        });
+      }
+      wrap.querySelectorAll('[data-bds-utab]').forEach(function (t) {
+        t.addEventListener('click', function () {
+          var m = t.getAttribute('data-bds-utab');
+          wrap.querySelectorAll('[data-bds-utab]').forEach(function (x) {
+            x.classList.toggle('is-on', x === t);
+          });
+          wrap.querySelectorAll('[data-bds-upanel]').forEach(function (p) {
+            var on = p.getAttribute('data-bds-upanel') === m;
+            p.classList.toggle('is-on', on);
+            p.toggleAttribute('hidden', !on);
+          });
+        });
+      });
+    }
+  })();
+</script>
+
+{% stylesheet %}
+  .bds-req-modal__shell {
+    display: flex;
+    flex-direction: column;
+    max-height: min(90vh, 720px);
+  }
+
+  .bds-req-modal__top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e0e0e0;
+    flex-shrink: 0;
+  }
+
+  .bds-req-modal__title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #0a3161;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
+
+  .bds-req-modal__x {
+    border: none;
+    background: none;
+    font-size: 1.35rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.1rem;
+    color: #333;
+  }
+
+  .bds-req-modal__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    flex: 1;
+    overflow: auto;
+  }
+
+  @media screen and (min-width: 700px) {
+    .bds-req-modal__grid {
+      grid-template-columns: minmax(200px, 32%) 1fr;
+    }
+  }
+
+  .bds-req-modal__sidebar {
+    background: #0a3161;
+    color: #fff;
+    padding: 1.25rem 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .bds-req-modal__badge {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: #c62828;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 800;
+    font-size: 0.65rem;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+  }
+
+  .bds-req-modal__features {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+  }
+
+  .bds-req-modal__features li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .bds-req-modal__features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #7cb342;
+    font-weight: 700;
+  }
+
+  .bds-req-modal__features strong {
+    display: block;
+    font-size: 0.875rem;
+  }
+
+  .bds-req-modal__features span {
+    display: block;
+    opacity: 0.88;
+    font-size: 0.75rem;
+  }
+
+  .bds-req-modal__howto-title {
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .bds-req-modal__howto-list {
+    margin: 0 0 1rem;
+    padding-left: 1.1rem;
+  }
+
+  .bds-req-modal__howto-list li {
+    margin-bottom: 0.35rem;
+  }
+
+  .bds-req-modal__sidebar-foot {
+    margin: 0;
+    font-size: 0.75rem;
+    opacity: 0.9;
+  }
+
+  .bds-req-modal__main {
+    padding: 1.25rem;
+    background: #fff;
+    overflow: auto;
+  }
+
+  .bds-req-modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .bds-req-modal__body-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  .bds-req-modal__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .bds-req-modal__dims {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .bds-req-modal__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .bds-req-modal__input,
+  .bds-req-modal__textarea {
+    width: 100%;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid #c8c8c8;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-family: inherit;
+  }
+
+  .bds-req-modal__textarea {
+    resize: vertical;
+    min-height: 5rem;
+  }
+
+  .bds-req-modal__upload-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .bds-req-modal__utab {
+    flex: 1 1 auto;
+    min-width: 5rem;
+    padding: 0.45rem 0.5rem;
+    border: 1px solid #c8c8c8;
+    background: #f5f5f5;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+
+  .bds-req-modal__utab.is-on {
+    background: #c62828;
+    color: #fff;
+    border-color: #c62828;
+  }
+
+  .bds-req-modal__upanel {
+    margin-bottom: 0.5rem;
+  }
+
+  .bds-req-modal__upanel[hidden] {
+    display: none !important;
+  }
+
+  .bds-req-modal__file-btn {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    padding: 0.55rem 1.25rem;
+    background: #c62828;
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: center;
+  }
+
+  .bds-req-modal__file-btn:hover {
+    filter: brightness(1.06);
+  }
+
+  .bds-req-modal__file-name {
+    font-size: 0.8125rem;
+    margin: 0 0 0.35rem;
+    color: #2e7d32;
+  }
+
+  .bds-req-modal__file {
+    font-size: 0.8125rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .bds-req-modal__hint {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #666;
+  }
+
+  .bds-req-modal__check {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8125rem;
+    cursor: pointer;
+  }
+
+  .bds-req-modal__send {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    background: #c62828;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    font-family: inherit;
+    text-transform: uppercase;
+  }
+
+  .bds-req-modal__send:hover {
+    filter: brightness(1.06);
+  }
+
+  .bds-req-modal__alert {
+    padding: 0.65rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+  }
+
+  .bds-req-modal__alert--error {
+    background: #ffebee;
+    color: #b71c1c;
+  }
+
+  .bds-req-modal__alert--ok {
+    background: #e8f5e9;
+    color: #1b5e20;
+  }
+
+  .bds-req-modal__errlist {
+    margin: 0.35rem 0 0;
+    padding-left: 1.2rem;
+  }
+{% endstylesheet %}
