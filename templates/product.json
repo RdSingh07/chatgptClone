@@ -480,7 +480,7 @@
         "equal_columns": true,
         "limit_details_width": false,
         "gap": 48,
-        "enable_sticky_add_to_cart": false,
+        "enable_sticky_add_to_cart": true,
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
         "padding-block-end": 0

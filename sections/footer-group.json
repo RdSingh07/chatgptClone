@@ -11,6 +11,22 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "footer_contact_bar_bds": {
+      "type": "footer-contact-bar",
+      "settings": {
+        "bar_height": 56,
+        "cart_label": "Cart",
+        "phone_label": "Call +91 77080 08073",
+        "phone_url": "tel:+917708008073",
+        "email_label": "support@backdropsource.in",
+        "email_url": "mailto:support@backdropsource.in",
+        "chat_label": "Chat Now!",
+        "chat_url": "",
+        "chat_new_tab": false,
+        "whatsapp_url": "https://wa.me/917708008073",
+        "whatsapp_aria_label": "WhatsApp us"
+      }
+    },
     "footer_m9NzUG": {
       "type": "footer",
       "blocks": {
@@ -205,6 +221,7 @@
     }
   },
   "order": [
+    "footer_contact_bar_bds",
     "footer_m9NzUG",
     "footer_utilities_jLGE8U"
   ]

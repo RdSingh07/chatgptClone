@@ -188,7 +188,7 @@
 {% stylesheet %}
   .sticky-add-to-cart__bar {
     position: fixed;
-    bottom: 20px;
+    bottom: calc(20px + var(--footer-contact-bar-offset, 0px));
     left: 50%;
     opacity: 0;
     transform: translateX(-50%) translateY(calc(100% + 40px));
@@ -296,7 +296,7 @@
   /* Mobile adjustments */
   @media screen and (max-width: 749px) {
     .sticky-add-to-cart__bar {
-      bottom: 0;
+      bottom: var(--footer-contact-bar-offset, 0px);
       width: 100%;
       max-width: none;
       border-radius: 0;
