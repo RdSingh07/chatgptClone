@@ -365,7 +365,11 @@
       "quantity_maximum": "Maximum of {{ maximum }}",
       "in_cart": "in cart",
       "default_title": "Default Title",
-      "sticky_add_to_cart": "Quick add to cart bar"
+      "sticky_add_to_cart": "Quick add to cart bar",
+      "breadcrumb_nav": "Breadcrumbs",
+      "breadcrumb_home": "Home",
+      "breadcrumb_home_title": "Back to the front page",
+      "trust_badge_alt": "Trust badge"
     }
   }
 }

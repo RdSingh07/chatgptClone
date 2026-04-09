@@ -1,0 +1,296 @@
+{%- doc -%}
+  Trust badge strip + breadcrumb (reference: text.txt shopify-section-sub-menu-header & breadcrumb).
+  Desktop only: classes feature-row--sub-menu-header, hide-mobile; max-width 900px breakpoint.
+{%- enddoc -%}
+
+<div class="product-sub-nav-header">
+  {% if section.settings.show_trust_bar and section.blocks.size > 0 %}
+    <div
+      class="feature-row feature-row--sub-menu-header hide-mobile"
+      style="--product-sub-nav-trust-bg: {{ section.settings.trust_bar_background }};"
+    >
+      <div class="page-width">
+        <ul class="product-sub-nav-header__trust-list list-unstyled" role="list">
+          {% for block in section.blocks %}
+            {% if block.type == 'trust_badge' %}
+              <li
+                class="submenu-list product-sub-nav-header__trust-item{% if block.settings.full_width_row %} product-sub-nav-header__trust-item--full-row{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                <div class="product-sub-nav-header__trust-inner">
+                  {% liquid
+                    assign badge_alt = block.settings.label | strip
+                    if badge_alt == blank
+                      assign badge_alt = 'products.product.trust_badge_alt' | t
+                    endif
+                  %}
+                  {% if block.settings.icon != blank %}
+                    <img
+                      class="img_sub product-sub-nav-header__icon"
+                      src="{{ block.settings.icon | image_url: width: 46 }}"
+                      alt="{{ badge_alt | escape }}"
+                      width="23"
+                      height="23"
+                      loading="lazy"
+                    >
+                  {% elsif block.settings.icon_fallback_url != blank %}
+                    <img
+                      class="img_sub product-sub-nav-header__icon"
+                      src="{{ block.settings.icon_fallback_url | escape }}"
+                      alt="{{ badge_alt | escape }}"
+                      width="23"
+                      height="23"
+                      loading="lazy"
+                    >
+                  {% endif %}
+                  {% if block.settings.label != blank %}
+                    <span class="product-sub-nav-header__label">{{ block.settings.label | escape }}</span>
+                  {% endif %}
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if section.settings.show_breadcrumb %}
+    <div class="page-width section-width product-sub-nav-header__breadcrumb-outer hide-mobile">
+      <nav
+        class="breadcrumb product-sub-nav-header__breadcrumb"
+        role="navigation"
+        aria-label="{{ 'products.product.breadcrumb_nav' | t }}"
+      >
+        <a href="{{ routes.root_url }}" title="{{ 'products.product.breadcrumb_home_title' | t }}">
+          {{- 'products.product.breadcrumb_home' | t -}}
+        </a>
+        <span class="divider" aria-hidden="true">&rsaquo;</span>
+        <span class="breadcrumb--truncate">{{ product.title | escape }}</span>
+      </nav>
+    </div>
+  {% endif %}
+</div>
+
+{% stylesheet %}
+  @media screen and (max-width: 900px) {
+    .product-sub-nav-header .hide-mobile {
+      display: none !important;
+    }
+  }
+
+  .feature-row.feature-row--sub-menu-header {
+    background: var(--product-sub-nav-trust-bg, #f9f9f9);
+    text-align: center;
+  }
+
+  .img_sub {
+    vertical-align: middle;
+  }
+
+  .submenu-list {
+    padding: 0 1rem;
+    margin: 0;
+    list-style: none;
+  }
+
+  .product-sub-nav-header__trust-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem 0.5rem;
+    padding: 0.2rem 0;
+    margin: 0;
+  }
+
+  .product-sub-nav-header__trust-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .product-sub-nav-header__icon {
+    flex-shrink: 0;
+    margin-right: 0;
+  }
+
+  .product-sub-nav-header__label {
+    color: #0a3161;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .product-sub-nav-header__trust-item--full-row {
+    flex: 0 0 100%;
+    width: 100%;
+    padding-top: 0.15rem;
+  }
+
+  .product-sub-nav-header__trust-item--full-row .product-sub-nav-header__trust-inner {
+    justify-content: center;
+  }
+
+  .product-sub-nav-header__breadcrumb-outer {
+    padding-block: 0.5rem 0.25rem;
+  }
+
+  .product-sub-nav-header__breadcrumb.breadcrumb {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .product-sub-nav-header__breadcrumb.breadcrumb a {
+    flex-shrink: 0;
+    color: rgb(var(--color-foreground-rgb) / 0.85);
+    text-decoration: none;
+  }
+
+  .product-sub-nav-header__breadcrumb.breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .product-sub-nav-header__breadcrumb.breadcrumb .divider {
+    flex-shrink: 0;
+    margin: 0 0.35rem;
+    color: rgb(var(--color-foreground-rgb) / 0.45);
+  }
+
+  .product-sub-nav-header__breadcrumb.breadcrumb .breadcrumb--truncate {
+    flex: 1;
+    min-width: 0;
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.product_sub_nav_header",
+  "tag": "section",
+  "class": "section-product-sub-nav-header",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "t:settings.product_sub_nav_show_trust_bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "trust_bar_background",
+      "label": "t:settings.product_sub_nav_trust_bg",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "t:settings.product_sub_nav_show_breadcrumb",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "t:names.product_sub_nav_trust_badge",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "t:settings.product_sub_nav_icon"
+        },
+        {
+          "type": "url",
+          "id": "icon_fallback_url",
+          "label": "t:settings.product_sub_nav_icon_url"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "t:settings.product_sub_nav_label",
+          "default": "Trust line"
+        },
+        {
+          "type": "checkbox",
+          "id": "full_width_row",
+          "label": "t:settings.product_sub_nav_full_row",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.product_sub_nav_header",
+      "category": "t:categories.product",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "SUSTAINABLE, PVC-FREE FABRIC",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/leaf_1_small.png?v=1765969587"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "FREE SHIPPING",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/truck_1_small.png?v=1765969599"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "1-YEAR PRODUCT WARRANTY",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/tick_1_small.png?v=1765969611"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "TRUSTED FOR 21+ YEARS",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/cele_1_small.png?v=1765969624"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "FREE ARTWORK ASSISTANCE",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/brush_1_small.png?v=1765969633"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "BEST PRICE GUARANTEE",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/tag_1_small.png?v=1765969645"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "label": "COMPLIMENTARY 2D MOCKUPS",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/2d_1_small.png?v=1765969655",
+            "full_width_row": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

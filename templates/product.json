@@ -9,6 +9,81 @@
  */
 {
   "sections": {
+    "product_sub_nav_header_bds": {
+      "type": "product-sub-nav-header",
+      "settings": {
+        "show_trust_bar": true,
+        "trust_bar_background": "#f9f9f9",
+        "show_breadcrumb": true
+      },
+      "blocks": {
+        "trust_badge_leaf": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "SUSTAINABLE, PVC-FREE FABRIC",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/leaf_1_small.png?v=1765969587",
+            "full_width_row": false
+          }
+        },
+        "trust_badge_truck": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "FREE SHIPPING",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/truck_1_small.png?v=1765969599",
+            "full_width_row": false
+          }
+        },
+        "trust_badge_tick": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "1-YEAR PRODUCT WARRANTY",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/tick_1_small.png?v=1765969611",
+            "full_width_row": false
+          }
+        },
+        "trust_badge_cele": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "TRUSTED FOR 21+ YEARS",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/cele_1_small.png?v=1765969624",
+            "full_width_row": false
+          }
+        },
+        "trust_badge_brush": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "FREE ARTWORK ASSISTANCE",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/brush_1_small.png?v=1765969633",
+            "full_width_row": false
+          }
+        },
+        "trust_badge_tag": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "BEST PRICE GUARANTEE",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/tag_1_small.png?v=1765969645",
+            "full_width_row": false
+          }
+        },
+        "trust_badge_2d": {
+          "type": "trust_badge",
+          "settings": {
+            "label": "COMPLIMENTARY 2D MOCKUPS",
+            "icon_fallback_url": "https://www.backdropsource.in/cdn/shop/files/2d_1_small.png?v=1765969655",
+            "full_width_row": true
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_leaf",
+        "trust_badge_truck",
+        "trust_badge_tick",
+        "trust_badge_cele",
+        "trust_badge_brush",
+        "trust_badge_tag",
+        "trust_badge_2d"
+      ]
+    },
     "main": {
       "type": "product-information",
       "blocks": {
@@ -633,6 +708,7 @@
     }
   },
   "order": [
+    "product_sub_nav_header_bds",
     "main",
     "how_to_order_cD6gTe",
     "product_detail_tabs_bds",
