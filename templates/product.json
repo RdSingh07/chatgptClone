@@ -214,7 +214,7 @@
                 "outline_heading": "Step 1:",
                 "outline_subheading": "Select the frame size, printing sides & frame structures options",
                 "outline_hide_mobile": false,
-                "outline_border": "accent",
+                "outline_border": "neutral",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -235,8 +235,8 @@
                 "outline_step_box": true,
                 "outline_heading": "Step 2:",
                 "outline_subheading": "Upload your designs now or you can upload later",
-                "outline_hide_mobile": true,
-                "outline_border": "accent",
+                "outline_hide_mobile": false,
+                "outline_border": "neutral",
                 "show_quantity_row_label": false,
                 "quantity_row_label": "Quantity",
                 "padding-block-start": 0,
@@ -256,8 +256,8 @@
                   "static": true,
                   "settings": {
                     "style_class": "button",
-                    "backdrop_green_button": false,
-                    "show_payment_icons": false
+                    "backdrop_green_button": true,
+                    "show_payment_icons": true
                   },
                   "blocks": {}
                 },
