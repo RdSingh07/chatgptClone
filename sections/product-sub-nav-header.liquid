@@ -3,60 +3,58 @@
   Desktop only: classes feature-row--sub-menu-header, hide-mobile; max-width 900px breakpoint.
 {%- enddoc -%}
 
-<div class="product-sub-nav-header">
+<div class="product-sub-nav-header section section--page-width">
   {% if section.settings.show_trust_bar and section.blocks.size > 0 %}
     <div
       class="feature-row feature-row--sub-menu-header hide-mobile"
       style="--product-sub-nav-trust-bg: {{ section.settings.trust_bar_background }};"
     >
-      <div class="page-width">
-        <ul class="product-sub-nav-header__trust-list list-unstyled" role="list">
-          {% for block in section.blocks %}
-            {% if block.type == 'trust_badge' %}
-              <li
-                class="submenu-list product-sub-nav-header__trust-item{% if block.settings.full_width_row %} product-sub-nav-header__trust-item--full-row{% endif %}"
-                {{ block.shopify_attributes }}
-              >
-                <div class="product-sub-nav-header__trust-inner">
-                  {% liquid
-                    assign badge_alt = block.settings.label | strip
-                    if badge_alt == blank
-                      assign badge_alt = 'products.product.trust_badge_alt' | t
-                    endif
-                  %}
-                  {% if block.settings.icon != blank %}
-                    <img
-                      class="img_sub product-sub-nav-header__icon"
-                      src="{{ block.settings.icon | image_url: width: 46 }}"
-                      alt="{{ badge_alt | escape }}"
-                      width="23"
-                      height="23"
-                      loading="lazy"
-                    >
-                  {% elsif block.settings.icon_fallback_url != blank %}
-                    <img
-                      class="img_sub product-sub-nav-header__icon"
-                      src="{{ block.settings.icon_fallback_url | escape }}"
-                      alt="{{ badge_alt | escape }}"
-                      width="23"
-                      height="23"
-                      loading="lazy"
-                    >
-                  {% endif %}
-                  {% if block.settings.label != blank %}
-                    <span class="product-sub-nav-header__label">{{ block.settings.label | escape }}</span>
-                  {% endif %}
-                </div>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
+      <ul class="product-sub-nav-header__trust-list list-unstyled" role="list">
+        {% for block in section.blocks %}
+          {% if block.type == 'trust_badge' %}
+            <li
+              class="submenu-list product-sub-nav-header__trust-item{% if block.settings.full_width_row %} product-sub-nav-header__trust-item--full-row{% endif %}"
+              {{ block.shopify_attributes }}
+            >
+              <div class="product-sub-nav-header__trust-inner">
+                {% liquid
+                  assign badge_alt = block.settings.label | strip
+                  if badge_alt == blank
+                    assign badge_alt = 'products.product.trust_badge_alt' | t
+                  endif
+                %}
+                {% if block.settings.icon != blank %}
+                  <img
+                    class="img_sub product-sub-nav-header__icon"
+                    src="{{ block.settings.icon | image_url: width: 46 }}"
+                    alt="{{ badge_alt | escape }}"
+                    width="23"
+                    height="23"
+                    loading="lazy"
+                  >
+                {% elsif block.settings.icon_fallback_url != blank %}
+                  <img
+                    class="img_sub product-sub-nav-header__icon"
+                    src="{{ block.settings.icon_fallback_url | escape }}"
+                    alt="{{ badge_alt | escape }}"
+                    width="23"
+                    height="23"
+                    loading="lazy"
+                  >
+                {% endif %}
+                {% if block.settings.label != blank %}
+                  <span class="product-sub-nav-header__label">{{ block.settings.label | escape }}</span>
+                {% endif %}
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
     </div>
   {% endif %}
 
   {% if section.settings.show_breadcrumb %}
-    <div class="page-width section-width product-sub-nav-header__breadcrumb-outer hide-mobile">
+    <div class="product-sub-nav-header__breadcrumb-outer hide-mobile">
       <nav
         class="breadcrumb product-sub-nav-header__breadcrumb"
         role="navigation"
@@ -79,9 +77,21 @@
     }
   }
 
+  /* Same grid column layout as product-information (theme .section--page-width). */
+  .product-sub-nav-header.section.section--page-width {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
   .feature-row.feature-row--sub-menu-header {
     background: var(--product-sub-nav-trust-bg, #f9f9f9);
     text-align: center;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .img_sub {
@@ -89,9 +99,11 @@
   }
 
   .submenu-list {
-    padding: 0 1rem;
+    padding: 0 0.65rem;
     margin: 0;
     list-style: none;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .product-sub-nav-header__trust-list {
@@ -99,20 +111,34 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 0.25rem 0.5rem;
-    padding: 0.2rem 0;
+    align-content: center;
+    gap: 0.35rem 0.25rem;
+    padding: 0.35rem 0;
     margin: 0;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .product-sub-nav-header__trust-inner {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+    min-width: 0;
+    max-width: 100%;
   }
 
+  /* External CDN icons can be huge; lock display size (ref: 23×23). */
   .product-sub-nav-header__icon {
     flex-shrink: 0;
-    margin-right: 0;
+    margin: 0;
+    width: 23px;
+    height: 23px;
+    max-width: 23px;
+    max-height: 23px;
+    object-fit: contain;
+    display: block;
   }
 
   .product-sub-nav-header__label {
@@ -121,7 +147,10 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.01em;
+    line-height: 1.25;
     white-space: nowrap;
+    min-width: 0;
+    text-align: left;
   }
 
   .product-sub-nav-header__trust-item--full-row {
@@ -136,6 +165,10 @@
 
   .product-sub-nav-header__breadcrumb-outer {
     padding-block: 0.5rem 0.25rem;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
   .product-sub-nav-header__breadcrumb.breadcrumb {
