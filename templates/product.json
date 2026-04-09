@@ -241,7 +241,7 @@
                 "outline_heading": "Step 2:",
                 "outline_subheading": "Upload your designs now or you can upload later",
                 "outline_hide_mobile": true,
-                "outline_border": "accent",
+                "outline_border": "neutral",
                 "show_quantity_row_label": false,
                 "quantity_row_label": "Quantity",
                 "padding-block-start": 0,
