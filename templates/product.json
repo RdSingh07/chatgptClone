@@ -270,6 +270,24 @@
               },
               "block_order": []
             },
+            "product_outline_cta_JrRhbF": {
+              "type": "product-outline-cta",
+              "name": "t:names.product_outline_cta",
+              "settings": {
+                "heading": "Get Free 2D Mockup",
+                "hide_on_mobile": false,
+                "button_label": "Get Free 2D Design Preview",
+                "icon_style": "image",
+                "open_mode": "dialog",
+                "link_url": "",
+                "open_new_tab": false,
+                "modal_heading": "Free 2D design preview",
+                "modal_body": "<p>Share your logo and size details. Our team will email a free 2D mockup before printing.</p>",
+                "support_email": "support@backdropsource.in",
+                "email_button_label": "Email us"
+              },
+              "blocks": {}
+            },
             "product_outline_bds": {
               "type": "product-outline-links",
               "name": "Template & quote links",
@@ -346,6 +364,7 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "product_outline_cta_JrRhbF",
             "product_outline_bds",
             "product_order_steps_bds",
             "product_spec_bds"
