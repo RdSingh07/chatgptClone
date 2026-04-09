@@ -260,6 +260,51 @@
       "visible_if": "{{ section.settings.content_width == 'content-center-aligned' }}"
     },
     {
+      "type": "header",
+      "content": "t:content.backdrop_product_gallery"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_backdrop_gallery",
+      "label": "t:settings.enable_backdrop_gallery",
+      "default": false,
+      "info": "t:info.enable_backdrop_gallery"
+    },
+    {
+      "type": "color",
+      "id": "backdrop_gallery_background",
+      "label": "t:settings.backdrop_gallery_background",
+      "default": "#e8e8e8",
+      "visible_if": "{{ block.settings.enable_backdrop_gallery == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_360_view_badge",
+      "label": "t:settings.show_360_view_badge",
+      "default": false,
+      "visible_if": "{{ block.settings.enable_backdrop_gallery == true }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "three_sixty_badge_image",
+      "label": "t:settings.three_sixty_badge_image",
+      "visible_if": "{{ block.settings.enable_backdrop_gallery == true and block.settings.show_360_view_badge == true }}"
+    },
+    {
+      "type": "text",
+      "id": "three_sixty_badge_url",
+      "label": "t:settings.three_sixty_badge_url",
+      "info": "t:info.three_sixty_badge_url",
+      "visible_if": "{{ block.settings.enable_backdrop_gallery == true and block.settings.show_360_view_badge == true }}"
+    },
+    {
+      "type": "url",
+      "id": "three_sixty_video_embed_url",
+      "label": "t:settings.three_sixty_video_embed_url",
+      "info": "t:info.three_sixty_video_embed_url",
+      "visible_if": "{{ block.settings.enable_backdrop_gallery == true and block.settings.show_360_view_badge == true }}"
+    },
+    {
       "type": "checkbox",
       "id": "zoom",
       "label": "t:settings.enable_zoom",

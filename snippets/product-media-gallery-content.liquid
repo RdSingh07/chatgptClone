@@ -120,6 +120,25 @@
   endif
   assign has_image_drop = sorted_media | has: 'media_type', 'image'
 
+  assign backdrop_stage = false
+  if block_settings.enable_backdrop_gallery and media_presentation == 'carousel'
+    assign backdrop_stage = true
+  endif
+
+  assign three_sixty_badge_src = ''
+  if backdrop_stage and block_settings.show_360_view_badge
+    if block_settings.three_sixty_badge_image != blank
+      assign three_sixty_badge_src = block_settings.three_sixty_badge_image | image_url: width: 240
+    elsif block_settings.three_sixty_badge_url != blank
+      assign three_sixty_badge_src = block_settings.three_sixty_badge_url | strip
+    endif
+  endif
+
+  assign three_sixty_dialog = false
+  if three_sixty_badge_src != blank and block_settings.three_sixty_video_embed_url != blank
+    assign three_sixty_dialog = true
+  endif
+
   # Determine if we're in single column mode (carousel or grid with one column)
   assign is_single_column = false
   if media_presentation == 'carousel' or sorted_media.size == 1 or media_presentation == 'grid' and block_settings.media_columns == 'one'
@@ -348,8 +367,11 @@
       {% if block_settings.extend_media %}
         media-gallery--extend
       {% endif %}
+      {% if backdrop_stage %}
+        media-gallery--backdrop-stage
+      {% endif %}
     "
-    style="{% render 'spacing-style', settings: block_settings %} --thumbnail-width: {{ block_settings.thumbnail_width }}px; --media-radius: {{ block_settings.media_radius }}px;{% if block_settings.icons_style contains 'large' %} --slideshow-icon-padding: 0px;{% endif %}--image-gap: {{ block_settings.image_gap }}px;{% unless block_settings.aspect_ratio == 'adapt' %} --gallery-aspect-ratio: {{ block_settings.aspect_ratio }};{% endunless %}"
+    style="{% render 'spacing-style', settings: block_settings %} --thumbnail-width: {{ block_settings.thumbnail_width }}px; --media-radius: {{ block_settings.media_radius }}px;{% if block_settings.icons_style contains 'large' %} --slideshow-icon-padding: 0px;{% endif %}--image-gap: {{ block_settings.image_gap }}px;{% unless block_settings.aspect_ratio == 'adapt' %} --gallery-aspect-ratio: {{ block_settings.aspect_ratio }};{% endunless %}{% if backdrop_stage %} --backdrop-gallery-bg: {{ block_settings.backdrop_gallery_background }};{% endif %}"
     data-presentation="{{ media_presentation }}"
     {{ block_shopify_attributes }}
   >
@@ -363,6 +385,9 @@
                 assign media_sizes = sizes
               endif
           -%}
+          {% if backdrop_stage %}
+            <div class="product-media-stage-frame">
+          {% endif %}
           {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
             <div
               class="product-media-constraint-wrapper">
@@ -370,6 +395,39 @@
             </div>
           {% else %}
             {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+          {% endif %}
+          {% if three_sixty_badge_src != blank %}
+            {% if three_sixty_dialog %}
+              <button
+                type="button"
+                class="product-media-360-badge button-unstyled"
+                aria-label="{{ 'accessibility.play_video' | t }}"
+                data-product-360-open="product-360-dialog-{{ block_id }}"
+              >
+                <img
+                  src="{{ three_sixty_badge_src }}"
+                  alt=""
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                  class="product-media-360-badge__img"
+                >
+              </button>
+            {% else %}
+              <span class="product-media-360-badge product-media-360-badge--static" role="img" aria-hidden="true">
+                <img
+                  src="{{ three_sixty_badge_src }}"
+                  alt=""
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                  class="product-media-360-badge__img"
+                >
+              </span>
+            {% endif %}
+          {% endif %}
+          {% if backdrop_stage %}
+            </div>
           {% endif %}
         {% endcapture %}
         {% capture class %}
@@ -429,7 +487,15 @@
 
     {% if render_slideshow_arrows %}
       {% capture slideshow_arrows %}
-        {% render 'slideshow-arrows', class: 'mobile:hidden', icon_style: block_settings.icons_style %}
+        {% if backdrop_stage %}
+          {% render 'slideshow-arrows',
+            class: 'product-media-gallery__arrows--backdrop',
+            icon_style: block_settings.icons_style,
+            icon_shape: 'circle'
+          %}
+        {% else %}
+          {% render 'slideshow-arrows', class: 'mobile:hidden', icon_style: block_settings.icons_style %}
+        {% endif %}
       {% endcapture %}
     {% endif %}
 
@@ -635,6 +701,53 @@
       </script>
     {%- endif -%}
   </media-gallery>
+
+  {% if three_sixty_dialog %}
+    <dialog
+      id="product-360-dialog-{{ block_id }}"
+      class="product-backdrop-360-dialog"
+      aria-label="{{ 'accessibility.play_video' | t }}"
+    >
+      <div class="product-backdrop-360-dialog__panel">
+        <button
+          type="button"
+          class="button button-unstyled product-backdrop-360-dialog__close"
+          data-close-360
+          aria-label="{{ 'accessibility.close_dialog' | t }}"
+        >
+          ×
+        </button>
+        <iframe
+          class="product-backdrop-360-dialog__iframe"
+          src="{{ block_settings.three_sixty_video_embed_url }}"
+          title="{{ 'accessibility.play_video' | t }}"
+          allow="autoplay; fullscreen"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </dialog>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var id = 'product-360-dialog-{{ block_id }}';
+        var dialog = document.getElementById(id);
+        if (!dialog || typeof dialog.showModal !== 'function') return;
+        document.querySelectorAll('[data-product-360-open="' + id + '"]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            dialog.showModal();
+          });
+        });
+        var closeBtn = dialog.querySelector('[data-close-360]');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function () {
+            dialog.close();
+          });
+        }
+        dialog.addEventListener('click', function (e) {
+          if (e.target === dialog) dialog.close();
+        });
+      });
+    </script>
+  {% endif %}
 {% endif %}
 
 {% render 'product-media-gallery-content-styles' %}
@@ -1046,5 +1159,120 @@
 
   slideshow-slide.product-media-container--tallest {
     content-visibility: visible;
+  }
+
+  .media-gallery--backdrop-stage slideshow-container {
+    background-color: var(--backdrop-gallery-bg, #e8e8e8);
+  }
+
+  .media-gallery--backdrop-stage slideshow-slides {
+    min-height: min(31.25rem, 72vh);
+  }
+
+  @media screen and (min-width: 750px) {
+    .media-gallery--backdrop-stage slideshow-slides {
+      min-height: min(31.25rem, 75vh);
+    }
+  }
+
+  .product-media-stage-frame {
+    position: relative;
+    width: 100%;
+  }
+
+  .product-media-360-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: calc(var(--layer-flat) + 2);
+    cursor: pointer;
+    padding: 6px 12px;
+    line-height: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .product-media-360-badge:hover {
+    opacity: 0.92;
+  }
+
+  .product-media-360-badge--static {
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .product-media-360-badge__img {
+    display: block;
+    width: 80px;
+    height: auto;
+    max-width: min(80px, 22vw);
+  }
+
+  .media-gallery--backdrop-stage .product-media-gallery__arrows--backdrop {
+    mix-blend-mode: normal;
+  }
+
+  .media-gallery--backdrop-stage .product-media-gallery__arrows--backdrop .slideshow-control {
+    opacity: 1;
+    padding: 0;
+    min-width: 40px;
+    min-height: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .media-gallery--backdrop-stage .product-media-gallery__arrows--backdrop .slideshow-control--shape-circle {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+
+  .media-gallery--backdrop-stage .product-media-gallery__arrows--backdrop .slideshow-control--shape-circle:hover {
+    background: rgba(0, 0, 0, 0.78);
+  }
+
+  .product-backdrop-360-dialog {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+  }
+
+  .product-backdrop-360-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.4);
+  }
+
+  .product-backdrop-360-dialog__panel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 1rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .product-backdrop-360-dialog__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: #fff;
+    cursor: pointer;
+    min-width: var(--minimum-touch-target);
+    min-height: var(--minimum-touch-target);
+  }
+
+  .product-backdrop-360-dialog__iframe {
+    width: min(100%, 68vw);
+    height: min(80vh, 720px);
+    max-width: 1200px;
+    border: 0;
   }
 {% endstylesheet %}

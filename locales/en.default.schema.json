@@ -39,6 +39,7 @@
     "background": "Background",
     "background_image": "Background image",
     "background_video": "Background video",
+    "backdrop_product_gallery": "Product gallery (reference layout)",
     "block_link": "Block link",
     "block_size": "Block size",
     // Typography setting for body text size
@@ -234,7 +235,10 @@
     "video_autoplay": "Videos will be muted by default",
     "video_external": "Use a YouTube or Vimeo URL",
     "pills_usage": "Used for applied filters, discount codes, and search suggestions",
-    "media_type_info": "Features are populated from your menu links"
+    "media_type_info": "Features are populated from your menu links",
+    "enable_backdrop_gallery": "Matches reference product gallery: light grey area behind images and round prev/next controls. Optional 360° badge (top-left) opens an embed in a modal when a video URL is set.",
+    "three_sixty_badge_url": "Used when no badge image is uploaded. Paste a direct image or GIF URL (e.g. your 360° sticker).",
+    "three_sixty_video_embed_url": "YouTube, Vimeo, or Google Drive embed/preview URL shown when the 360° badge is clicked."
   },
   "names": {
     "column": "Column",
@@ -864,6 +868,12 @@
     "enable_sticky_content": "Sticky content on desktop",
     "enable_video_looping": "Video looping",
     "enable_zoom": "Enable zoom",
+    "enable_backdrop_gallery": "Grey stage & circular arrows",
+    "backdrop_gallery_background": "Gallery background color",
+    "show_360_view_badge": "360° view badge on each slide",
+    "three_sixty_badge_image": "360° badge image",
+    "three_sixty_badge_url": "360° badge image URL",
+    "three_sixty_video_embed_url": "360° / spin video URL (modal)",
     "equal_columns": "Equal columns",
     "error_color": "Error",
     "expand_first_group": "Expand first group",
