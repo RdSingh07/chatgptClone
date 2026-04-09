@@ -2,24 +2,34 @@
   Fixed bottom contact bar (reference: text.txt .footer-contact). Desktop only; cart, phone, email, chat, WhatsApp.
 {%- enddoc -%}
 
+{%- liquid
+  assign chat_href = section.settings.chat_url
+  if chat_href == blank
+    assign chat_href = section.settings.email_url
+  endif
+-%}
 <div
   class="footer-contact"
   data-footer-contact-bar
   data-footer-contact-height="{{ section.settings.bar_height }}"
 >
-  <div class="footer-1hf-container">
-    <ul class="footer-1hf-con-lst list-unstyled" role="list">
-      <li class="footer-cart">
-        <a href="{{ routes.cart_url }}" class="footer-contact__link">
-          <span class="footer-contact__icon" aria-hidden="true">
-            {{- 'icon-cart.svg' | inline_asset_content -}}
-          </span>
-          <span>
-            <span class="cart-count">{{ cart.item_count }}</span>
-            {{ section.settings.cart_label | escape }}
-          </span>
-        </a>
-      </li>
+  <div class="footer-contact__zone footer-cart footer-1hf-container">
+    <a href="{{ routes.cart_url }}" class="footer-contact__link footer-contact__cart-link">
+      <span class="footer-contact__icon" aria-hidden="true">
+        {{- 'icon-cart.svg' | inline_asset_content -}}
+      </span>
+      <span class="footer-contact__cart-badge" aria-hidden="true">{{ cart.item_count }}</span>
+      <span class="footer-contact__cart-label">
+        {{ section.settings.cart_label | escape }}
+      </span>
+      <span class="footer-contact__cart-chevron" aria-hidden="true">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </span>
+    </a>
+  </div>
+
+  <div class="footer-contact__zone footer-contact__zone--main footer-2hf-container">
+    <ul class="footer-contact__main-row footer-2hf-con-lst list-unstyled" role="list">
       <li class="footer-phone">
         <a href="{{ section.settings.phone_url | escape }}" class="footer-contact__link">
           <span class="footer-contact__icon footer-contact__icon--lg" aria-hidden="true">
@@ -27,13 +37,9 @@
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
             </svg>
           </span>
-          <span>{{ section.settings.phone_label | escape }}</span>
+          <span class="footer-contact__text">{{ section.settings.phone_label | escape }}</span>
         </a>
       </li>
-    </ul>
-  </div>
-  <div class="footer-2hf-container">
-    <ul class="footer-2hf-con-lst list-unstyled" role="list">
       <li class="footer-email">
         <a href="{{ section.settings.email_url | escape }}" class="footer-contact__link">
           <span class="footer-contact__icon footer-contact__icon--lg" aria-hidden="true">
@@ -42,41 +48,46 @@
               <polyline points="22,6 12,13 2,6"/>
             </svg>
           </span>
-          <span>{{ section.settings.email_label | escape }}</span>
+          <span class="footer-contact__text">{{ section.settings.email_label | escape }}</span>
         </a>
       </li>
-      {% if section.settings.chat_url != blank %}
-        <li class="chatnow">
-          <a href="{{ section.settings.chat_url }}" class="footer-contact__link"{% if section.settings.chat_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
-            <span class="footer-contact__icon footer-contact__icon--lg" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
-                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
-              </svg>
-            </span>
-            {{ section.settings.chat_label | escape }}
-          </a>
-        </li>
-      {% endif %}
-      {% if section.settings.whatsapp_url != blank %}
-        <li class="footer-contact__whatsapp">
-          <a
-            href="{{ section.settings.whatsapp_url }}"
-            class="footer-contact__link footer-contact__whatsapp-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="{{ section.settings.whatsapp_aria_label | escape }}"
-          >
-            <span class="footer-contact__icon footer-contact__icon--whatsapp" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-            </span>
-          </a>
-        </li>
-      {% endif %}
+      <li class="chatnow">
+        <a
+          href="{{ chat_href | escape }}"
+          class="footer-contact__link"
+          {% if section.settings.chat_new_tab %}
+            target="_blank" rel="noopener noreferrer"
+          {% endif %}
+        >
+          <span class="footer-contact__icon footer-contact__icon--lg" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+            </svg>
+          </span>
+          <span class="footer-contact__text">{{ section.settings.chat_label | escape }}</span>
+        </a>
+      </li>
     </ul>
   </div>
+
+  {% if section.settings.whatsapp_url != blank %}
+    <div class="footer-contact__zone footer-contact__whatsapp">
+      <a
+        href="{{ section.settings.whatsapp_url }}"
+        class="footer-contact__link footer-contact__whatsapp-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{ section.settings.whatsapp_aria_label | escape }}"
+      >
+        <span class="footer-contact__icon footer-contact__icon--whatsapp" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </span>
+      </a>
+    </div>
+  {% endif %}
 </div>
 
 <script>
@@ -105,7 +116,6 @@
   }
 
   .footer-contact {
-    background-color: #b31942;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -114,56 +124,96 @@
     padding: 0;
     width: 100%;
     display: flex;
+    align-items: stretch;
     color: #fff;
+    box-sizing: border-box;
+    background: transparent;
+  }
+
+  .footer-contact__zone {
+    display: flex;
+    align-items: stretch;
     box-sizing: border-box;
   }
 
-  .footer-1hf-container,
-  .footer-2hf-container {
-    padding: 0;
+  .footer-cart.footer-contact__zone {
+    flex: 0 0 auto;
+    min-width: 7.5rem;
+    background-color: #0a3161;
   }
 
-  .footer-1hf-container {
-    width: 40%;
+  .footer-contact__cart-link {
+    padding: 10px 14px;
+    gap: 6px;
+    flex-wrap: nowrap;
   }
 
-  .footer-2hf-container {
-    width: 60%;
+  .footer-contact__cart-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 5px;
+    border-radius: 999px;
+    background-color: #b31942;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
   }
 
-  .footer-1hf-con-lst,
-  .footer-2hf-con-lst {
-    margin: 0;
+  .footer-contact__cart-label {
+    font-size: 17px;
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
+  .footer-contact__cart-chevron {
     display: flex;
-    list-style: none;
+    width: 12px;
+    height: 12px;
+    margin-left: 2px;
+    opacity: 0.85;
+  }
+
+  .footer-contact__cart-chevron .icon-caret,
+  .footer-contact__cart-chevron svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(180deg);
+  }
+
+  .footer-contact__zone--main {
+    flex: 1;
+    min-width: 0;
+    background-color: #b92140;
+  }
+
+  .footer-contact__main-row {
+    margin: 0;
     padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
     height: 100%;
   }
 
-  .footer-1hf-con-lst li,
-  .footer-2hf-con-lst li {
-    font-size: 16px;
-    margin-bottom: 0;
-    padding: 10px;
-    text-align: center;
+  .footer-contact__main-row > li {
+    flex: 1;
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 10px 8px;
+    font-size: 16px;
     box-sizing: border-box;
   }
 
-  .footer-1hf-con-lst li {
-    width: 50%;
-  }
-
-  .footer-cart {
-    background-color: #0a3161;
-    color: #fff;
-  }
-
   .footer-cart a,
-  .footer-1hf-con-lst a,
-  .footer-2hf-con-lst a {
+  .footer-contact__main-row a,
+  .footer-contact__whatsapp a {
     color: #fff;
     text-decoration: none;
   }
@@ -172,7 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 6px;
     width: 100%;
     height: 100%;
     color: inherit;
@@ -200,21 +250,13 @@
     height: 22px;
   }
 
-  .chatnow {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .footer-email {
-    flex: 1;
-    min-width: 0;
-  }
-
   .footer-contact__whatsapp {
-    width: 10%;
-    min-width: 44px;
-    padding: 10px 6px !important;
-    background-color: #24cc63;
+    flex: 0 0 56px;
+    width: 56px;
+    background-color: #25d366;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
   }
 
   .footer-contact__whatsapp-link {
@@ -226,15 +268,6 @@
     height: 26px;
   }
 
-  .footer-cart span {
-    font-size: 17px;
-    font-weight: 300;
-  }
-
-  .cart-count {
-    font-weight: 600;
-  }
-
   @media screen and (max-width: 768px) {
     .footer-contact {
       display: none !important;
@@ -242,21 +275,22 @@
   }
 
   @media screen and (max-width: 896px) {
-    .footer-1hf-con-lst li,
-    .footer-2hf-con-lst li {
+    .footer-contact__main-row > li {
       font-size: 14px !important;
     }
   }
 
   @media screen and (max-width: 1024px) {
-    .footer-phone span:not(.footer-contact__icon),
-    .footer-email span:not(.footer-contact__icon) {
+    .footer-contact__main-row .footer-contact__text {
       display: none;
     }
 
-    .footer-phone .footer-contact__link,
-    .footer-email .footer-contact__link {
+    .footer-contact__main-row .footer-contact__link {
       gap: 0;
+    }
+
+    .chatnow .footer-contact__text {
+      display: none;
     }
   }
 {% endstylesheet %}

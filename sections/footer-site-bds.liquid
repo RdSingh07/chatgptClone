@@ -1,0 +1,670 @@
+{%- doc -%}
+  Main site footer matching Backdropsource / text.txt: navy block, 4 columns (2 menus, get in touch, badge),
+  then quick links + social, then copyright + payment icons.
+{%- enddoc -%}
+
+<div
+  class="footer-site-bds-root"
+  style="--footer-site-bds-bg: {{ section.settings.footer_bg_color }};"
+>
+  <div class="section-background footer-site-bds__bg"></div>
+  <div
+    class="footer-site-bds section section--{{ section.settings.section_width }} spacing-style"
+    style="{% render 'spacing-style', settings: section.settings %}"
+  >
+    <div class="footer-site-bds__inner">
+    <div class="footer-site-bds__grid">
+      {% comment %} Column 1: Custom designs {% endcomment %}
+      <div class="footer-site-bds__col">
+        <h3 class="footer-menu-heading">{{ section.settings.heading_designs | escape }}</h3>
+        <nav aria-label="{{ section.settings.heading_designs | escape }}">
+          <ul class="footer-site-bds__links list-unstyled">
+            {% if section.settings.menu_designs != blank and section.settings.menu_designs.links.size > 0 %}
+              {% for link in section.settings.menu_designs.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            {% else %}
+              <li><a href="/collections/modular-displays-for-exhibitions-booth">Trade Show Kits</a></li>
+              <li><a href="/collections/stretch-tension-fabric-backdrop-display">Event Branding Displays</a></li>
+              <li><a href="/collections/free-standing-light-box">Custom SEG Lightbox Displays</a></li>
+              <li><a href="/collections/heavy-duty-canopy-tent-outdoor">Custom Printed Canopy Tents</a></li>
+              <li><a href="/collections/shell-scheme-exhibition-graphics">Exhibition Booth Graphics</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+      {% comment %} Column 2: Customer service {% endcomment %}
+      <div class="footer-site-bds__col">
+        <h3 class="footer-menu-heading">{{ section.settings.heading_service | escape }}</h3>
+        <nav aria-label="{{ section.settings.heading_service | escape }}">
+          <ul class="footer-site-bds__links list-unstyled">
+            {% if section.settings.menu_service != blank and section.settings.menu_service.links.size > 0 %}
+              {% for link in section.settings.menu_service.links %}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            {% else %}
+              <li><a href="/pages/contact">Contact Us</a></li>
+              <li><a href="/policies/refund-policy">Refunds</a></li>
+              <li><a href="/policies/refund-policy">Return Policy</a></li>
+              <li><a href="/policies/shipping-policy">Shipping Policy</a></li>
+              <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+              <li><a href="/policies/terms-of-service">Terms of Service</a></li>
+              <li><a href="https://backdropsource-india.goaffpro.com/" rel="noopener">Become an Affiliate</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+      {% comment %} Column 3: Get in touch {% endcomment %}
+      <div class="footer-site-bds__col">
+        <h3 class="footer-menu-heading">{{ section.settings.heading_touch | escape }}</h3>
+        <div class="footer-site-bds__touch rte">
+          {% if section.settings.contact_richtext != blank %}
+            {{ section.settings.contact_richtext }}
+          {% else %}
+            <p class="footer-site-bds__touch-lines">
+              <span class="footer-site-bds__touch-line">
+                <span class="footer-site-bds__touch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </span>
+                {{ section.settings.address_text | newline_to_br }}
+              </span>
+              <span class="footer-site-bds__touch-line">
+                <span class="footer-site-bds__touch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </span>
+                <a href="{{ section.settings.email_url | escape }}">{{ section.settings.email_display | escape }}</a>
+              </span>
+              <span class="footer-site-bds__touch-line">
+                <span class="footer-site-bds__touch-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <a href="{{ section.settings.phone_url | escape }}">{{ section.settings.phone_display | escape }}</a>
+              </span>
+            </p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% comment %} Column 4: Badge {% endcomment %}
+      <div class="footer-site-bds__col footer-site-bds__col--badge">
+        {% if section.settings.badge_image != blank %}
+          {{
+            section.settings.badge_image
+            | image_url: width: 400
+            | image_tag:
+              loading: 'lazy',
+              class: 'footer-site-bds__badge-img',
+              widths: '182, 364',
+              alt: section.settings.badge_alt | default: shop.name
+          }}
+        {% elsif section.settings.badge_image_url != blank %}
+          <img
+            class="footer-site-bds__badge-img"
+            src="{{ section.settings.badge_image_url | escape }}"
+            width="182"
+            height="182"
+            alt="{{ section.settings.badge_alt | escape }}"
+            loading="lazy"
+          >
+        {% endif %}
+      </div>
+    </div>
+
+    <hr class="footer-site-bds__rule">
+
+    <div class="footer-site-bds__row2">
+      <ul class="footer-site-bds__inline-links list-unstyled">
+        {% if section.settings.menu_footer_quick != blank and section.settings.menu_footer_quick.links.size > 0 %}
+          {% for link in section.settings.menu_footer_quick.links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        {% else %}
+          <li><a href="/pages/about-us">About Us</a></li>
+          <li><a href="{{ routes.blog_url }}">Blog</a></li>
+          <li><a href="/pages/gallery">Our Work</a></li>
+        {% endif %}
+      </ul>
+      {% if section.settings.show_social_row %}
+        <ul class="footer-site-bds__social list-unstyled" role="list">
+          {% if section.settings.social_twitter != blank %}
+            <li>
+              <a href="{{ section.settings.social_twitter }}" class="footer-site-bds__social-link" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
+                <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.social_facebook != blank %}
+            <li>
+              <a href="{{ section.settings.social_facebook }}" class="footer-site-bds__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.social_pinterest != blank %}
+            <li>
+              <a href="{{ section.settings.social_pinterest }}" class="footer-site-bds__social-link" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.social_instagram != blank %}
+            <li>
+              <a href="{{ section.settings.social_instagram }}" class="footer-site-bds__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              </a>
+            </li>
+          {% endif %}
+          {% if section.settings.social_youtube != blank %}
+            <li>
+              <a href="{{ section.settings.social_youtube }}" class="footer-site-bds__social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+
+    <hr class="footer-site-bds__rule">
+
+    <div class="footer-site-bds__row3">
+      <p class="footer-site-bds__copyright">
+        &copy; {{ 'now' | date: '%Y' }}
+        {{ shop.name | link_to: routes.root_url }}
+        {% if section.settings.show_powered_by %}
+          , {{ powered_by_link }}
+        {% endif %}
+      </p>
+      {% if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 %}
+        <div class="footer-site-bds__payments">
+          <span class="visually-hidden">{{ 'blocks.payment_methods' | t }}</span>
+          <ul class="footer-site-bds__payment-list list-unstyled" role="list">
+            {% for type in shop.enabled_payment_types %}
+              <li class="footer-site-bds__payment-item">{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+
+{% stylesheet %}
+  .footer-site-bds__bg {
+    background: var(--footer-site-bds-bg, #0a2a51);
+  }
+
+  .footer-site-bds {
+    --footer-site-bds-bg: #0a2a51;
+    --color-foreground: 255 255 255;
+    --color-foreground-rgb: 255 255 255;
+    color: rgb(var(--color-foreground-rgb));
+  }
+
+  .footer-site-bds__inner {
+    width: 100%;
+    max-width: 100%;
+    padding-inline: var(--page-margin);
+    box-sizing: border-box;
+  }
+
+  .footer-site-bds__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem 1.5rem;
+    padding-block: 2rem 1.5rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-site-bds__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .footer-site-bds__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: start;
+    }
+  }
+
+  .footer-site-bds .footer-menu-heading {
+    position: relative;
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: inherit;
+  }
+
+  .footer-site-bds .footer-menu-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30px;
+    height: 2px;
+    background-color: #fff;
+  }
+
+  .footer-site-bds__links a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    opacity: 0.95;
+  }
+
+  .footer-site-bds__links a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-site-bds__touch-lines {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+  }
+
+  .footer-site-bds__touch-line {
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+    margin-bottom: 0.65rem;
+  }
+
+  .footer-site-bds__touch-line:last-child {
+    margin-bottom: 0;
+  }
+
+  .footer-site-bds__touch-icon {
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    opacity: 0.9;
+  }
+
+  .footer-site-bds__touch a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .footer-site-bds__touch a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-site-bds__col--badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 990px) {
+    .footer-site-bds__col--badge {
+      justify-content: center;
+    }
+  }
+
+  .footer-site-bds__badge-img {
+    max-width: 182px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .footer-site-bds__rule {
+    border: none;
+    border-top: 1px solid rgb(255 255 255 / 0.2);
+    margin: 0;
+  }
+
+  .footer-site-bds__row2 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 1.25rem;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-site-bds__row2 {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .footer-site-bds__inline-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin: 0;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-site-bds__inline-links {
+      justify-content: flex-start;
+    }
+  }
+
+  .footer-site-bds__inline-links a {
+    color: inherit;
+    font-size: 0.875rem;
+    text-decoration: none;
+  }
+
+  .footer-site-bds__inline-links a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-site-bds__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .footer-site-bds__social-link {
+    color: inherit;
+    font-size: 0.75rem;
+    text-decoration: none;
+    opacity: 0.95;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    min-height: 2rem;
+  }
+
+  .footer-site-bds__social-link:hover {
+    opacity: 1;
+  }
+
+  .footer-site-bds__row3 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 1.25rem 2rem;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-site-bds__row3 {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .footer-site-bds__copyright {
+    margin: 0;
+    font-size: 0.8125rem;
+    opacity: 0.9;
+    text-align: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-site-bds__copyright {
+      text-align: left;
+    }
+  }
+
+  .footer-site-bds__copyright a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .footer-site-bds__copyright a:hover {
+    text-decoration: underline;
+  }
+
+  .footer-site-bds__payment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.35rem;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 750px) {
+    .footer-site-bds__payment-list {
+      justify-content: flex-end;
+    }
+  }
+
+  .footer-site-bds__payment-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .footer-site-bds__payment-item svg {
+    height: 24px;
+    width: auto;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.footer_site_bds",
+  "tag": "div",
+  "class": "footer-site-bds-wrapper",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "color",
+      "id": "footer_bg_color",
+      "label": "t:settings.footer_site_bds_bg",
+      "default": "#0a2a51"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.width",
+      "options": [
+        { "value": "page-width", "label": "t:options.page" },
+        { "value": "full-width", "label": "t:options.full" }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.footer_site_bds_menus"
+    },
+    {
+      "type": "text",
+      "id": "heading_designs",
+      "label": "t:settings.footer_site_bds_h1",
+      "default": "CUSTOM DESIGNS"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_designs",
+      "label": "t:settings.footer_site_bds_menu_designs"
+    },
+    {
+      "type": "text",
+      "id": "heading_service",
+      "label": "t:settings.footer_site_bds_h2",
+      "default": "CUSTOMER SERVICE"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_service",
+      "label": "t:settings.footer_site_bds_menu_service"
+    },
+    {
+      "type": "text",
+      "id": "heading_touch",
+      "label": "t:settings.footer_site_bds_h3",
+      "default": "GET IN TOUCH"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_richtext",
+      "label": "t:settings.footer_site_bds_contact_rte",
+      "info": "t:info.footer_site_bds_contact_rte"
+    },
+    {
+      "type": "textarea",
+      "id": "address_text",
+      "label": "t:settings.footer_site_bds_address",
+      "default": "23-26, Ansari St, Ram Nagar, Coimbatore, Tamil Nadu 641009"
+    },
+    {
+      "type": "text",
+      "id": "email_display",
+      "label": "t:settings.footer_site_bds_email_text",
+      "default": "support@backdropsource.in"
+    },
+    {
+      "type": "text",
+      "id": "email_url",
+      "label": "t:settings.footer_site_bds_email_url",
+      "default": "mailto:support@backdropsource.in"
+    },
+    {
+      "type": "text",
+      "id": "phone_display",
+      "label": "t:settings.footer_site_bds_phone_text",
+      "default": "+91 77080 08073"
+    },
+    {
+      "type": "text",
+      "id": "phone_url",
+      "label": "t:settings.footer_site_bds_phone_url",
+      "default": "tel:+917708008073"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.footer_site_bds_badge"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_image",
+      "label": "t:settings.image"
+    },
+    {
+      "type": "url",
+      "id": "badge_image_url",
+      "label": "t:settings.footer_site_bds_badge_url",
+      "default": "https://www.backdropsource.in/cdn/shop/files/22_Service_Icon_879b6d7c-6087-4930-91bc-775e1b1ca4b3_large.png?v=1767331514"
+    },
+    {
+      "type": "text",
+      "id": "badge_alt",
+      "label": "t:settings.footer_site_bds_badge_alt",
+      "default": "Years of service"
+    },
+    {
+      "type": "header",
+      "content": "t:settings.footer_site_bds_bottom"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_footer_quick",
+      "label": "t:settings.footer_site_bds_menu_quick"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_row",
+      "label": "t:settings.footer_site_bds_show_social",
+      "default": true
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "X (Twitter)"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_pinterest",
+      "label": "Pinterest"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_powered_by",
+      "label": "t:settings.show_powered_by_shopify",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "t:settings.footer_site_bds_payments",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.footer_site_bds",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}
