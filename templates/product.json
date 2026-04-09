@@ -214,7 +214,7 @@
                 "outline_heading": "Step 1:",
                 "outline_subheading": "Select the frame size, printing sides & frame structures options",
                 "outline_hide_mobile": false,
-                "outline_border": "neutral",
+                "outline_border": "accent",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -235,8 +235,8 @@
                 "outline_step_box": true,
                 "outline_heading": "Step 2:",
                 "outline_subheading": "Upload your designs now or you can upload later",
-                "outline_hide_mobile": false,
-                "outline_border": "neutral",
+                "outline_hide_mobile": true,
+                "outline_border": "accent",
                 "show_quantity_row_label": false,
                 "quantity_row_label": "Quantity",
                 "padding-block-start": 0,
@@ -256,8 +256,8 @@
                   "static": true,
                   "settings": {
                     "style_class": "button",
-                    "backdrop_green_button": true,
-                    "show_payment_icons": true
+                    "backdrop_green_button": false,
+                    "show_payment_icons": false
                   },
                   "blocks": {}
                 },
@@ -296,7 +296,7 @@
               "settings": {
                 "show_box_1": true,
                 "box_1_hide_mobile": false,
-                "box_1_border": "accent",
+                "box_1_border": "neutral",
                 "box_1_header": "Graphics Templates & Setup Guide",
                 "box_1_label": "Design Template & Assembly Guide",
                 "box_1_url": "https://mega.nz/folder/BZVEWB5R#hIFE7nFQ4p0kO3BwpjrxZg",
@@ -325,7 +325,7 @@
                 "icon_style": "file",
                 "open_mode": "dialog",
                 "modal_template": "backdrop_request",
-                "request_form_type": "quote",
+                "request_form_type": "mockup",
                 "link_url": "",
                 "open_new_tab": false,
                 "modal_heading": "CUSTOMIZED SIZE REQUEST",
